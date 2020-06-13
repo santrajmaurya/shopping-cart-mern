@@ -23,13 +23,25 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col className="gutter-row" span={4}>
               <Link className='logo-container' to='/'>
-                <Logo style={{ marginTop: '8px' }}  />
+                <Logo style={{ marginTop: '8px' }} />
               </Link>
             </Col>
             <Col className="gutter-row" span={20}>
               <Menu theme="dark" mode="horizontal" style={{ float: 'right', fontSize: '20px' }}>
                 <Menu.Item key="/shop">
                   <Link to="/shop">Shop</Link>
+                </Menu.Item>
+                <Menu.Item key="/products">
+                  <Link to="/products">Products</Link>
+                </Menu.Item>
+                <Menu.Item key="/orders">
+                  <Link to="/orders">Orders</Link>
+                </Menu.Item>
+                <Menu.Item key="/add-products">
+                  <Link to="/add-products">Add Products</Link>
+                </Menu.Item>
+                <Menu.Item key="/admin-products">
+                  <Link to="/admin-products">Admin Products</Link>
                 </Menu.Item>
                 <Menu.Item key="/contact">
                   <Link to="/contact">Contact</Link>
@@ -42,7 +54,7 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
                     <Menu.Item key="/signin">
                       <Link to="/signin">Sign In</Link>
                     </Menu.Item>
-                )}
+                  )}
                 <Menu.Item key="/checkout">
                   <Link to="/checkout"><CartIcon /></Link>
                 </Menu.Item>
