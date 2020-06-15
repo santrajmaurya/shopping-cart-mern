@@ -1,74 +1,120 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useContext } from 'react';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {
+  Form,
+  Input,
+  Checkbox,
+  Button,
+} from 'antd';
 
-import "./SignIn.scss";
+import { Observer } from "mobx-react-lite";
+import { Link, useHistory } from 'react-router-dom';
 
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+import { RootStoreContext } from "../../App";
 
-type SignInProps = {
-    email: string;
-    password: string;
+
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
 };
 
- const defaultValues = {
-  email: "",
-  password: ""
-};
+const SignIn = () => {
+  const [form] = Form.useForm();
+  const { userStore } = useContext(RootStoreContext);
+  const history = useHistory();
 
-const SignIn: React.FC = () => {
-  const { register, handleSubmit, reset, errors } = useForm<SignInProps>({defaultValues});
-
-  const onSubmit = async (data: SignInProps) => {
-
-    const {  email, password } = data;
-
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-
-    } catch(error) {
-
-      console.log(error);
+  const handleLogin = (values: any) => {
+    console.log('Received values of form: ', values);
+    userStore.login(values);
+    if (userStore.status === 'success') {
+      history.push('/');
     }
-    reset(defaultValues);
   };
 
   return (
-    <div className="sign-in">
-      <h2 className='title'>I already have an account.</h2>
-      <span>Sign in with your email and password.</span>
-      <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='group'>
-        <input
-          className='form-input'
-          id='email'
-          type="email"
-          name="email"
-          ref={register({ required: true })}
-        />
-          {errors.email && errors.email.type === "required" && (
-            <div className="error">Email is required.</div>
-          )}
-        <label className='shrink form-input-label'>email</label>
-        </div>
-        <div className='group'>
-        <input
-          className='form-input'
-          id='password'
+    <Observer>
+      {() => (
+    <Form
+      {...formItemLayout}
+      form={form}
+      name="signin"
+      onFinish={handleLogin}
+      initialValues={{ remember: false }}
+      style={{ marginTop: '50px' }}
+      scrollToFirstError
+    >
+      <Form.Item
+        name="email"
+        label="E-Mail"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="E-Mail" />
+      </Form.Item>
+      <Form.Item
+        name="password"
+        label="Password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined />}
           type="password"
-          name="password"
-          ref={register({ required: true })}
+          placeholder="Password"
         />
-          {errors.password && errors.password.type === "required" && (
-            <div className="error">Password is required.</div>
-          )}
-          <label className='shrink form-input-label'>password</label>
-        </div>
-        <div className='buttons'>
-          <button className='custom-button' type="submit">Sign In</button>
-          <button className='custom-button google-sign-in' onClick={signInWithGoogle}>Sign in with Google</button>
-        </div>
-      </form>
-    </div>
+      </Form.Item>
+      <Form.Item
+        name="remember"
+        valuePropName="checked"
+        {...tailFormItemLayout}
+      >
+        <Checkbox>
+          Remember me <Link to='/forgot-password' style={{marginLeft: '230px'}}>Forgot password</Link>
+        </Checkbox>
+      </Form.Item>
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit" style={{ width: '461px', cursor: 'pointer'}}>
+          Log in
+        </Button>
+      </Form.Item>
+      <Link to="/signup" style={{ marginLeft: '456px', cursor: 'pointer' }}>Or Register now!</Link>
+    </Form>
+      )}
+    </Observer>
   );
 };
 

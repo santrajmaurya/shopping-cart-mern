@@ -1,44 +1,27 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const path = require('path');
+const express = require("express");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-const errorController = require("./controllers/error");
-
-const usersRoutes = require("./routes/user-routes");
-const adminRoutes = require("./routes/admin-routes");
-const shopRoutes = require("./routes/product-routes");
-// const authRoutes = require("./routes/auth");
+// const placesRoutes = require("./routes/places-routes");
+const usersRoutes = require("./routes/users-routes");
 const HttpError = require("./models/http-error");
 
-if(process.env.NODE_ENV !== 'production') require('dotenv').config();
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
 const app = express();
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
 
-app.use(cors());
-
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-
-    app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    })
-}
-
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+  next();
+});
+// app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
-app.use("/admin", adminRoutes);
-app.use(shopRoutes);
-// app.use(authRoutes);
-
-app.use(errorController.get404);
-
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route", 404);
@@ -65,19 +48,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-app.post('/payment', (req, res) => {
-    const body = {
-        source: req.body.token.id,
-        amount: req.body.amount,
-        currency: 'inr'
-    }
-
-    stripe.charges.create(body, (stripeErr, stripeRes) => {
-        if(stripeErr) {
-            res.status(500).send({error: stripeErr});
-        } else {
-            res.status(200).send({success: stripeRes});
-        }
-    });
-})

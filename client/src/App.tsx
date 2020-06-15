@@ -6,11 +6,11 @@ import HeaderComponent from "./components/header/HeaderComponent";
 import HomePage from "./pages/homepage/HomePage";
 import ShopPage from "./pages/shop/ShopPage";
 import CheckoutPage from './pages/checkout/CheckoutPage';
-import SignInSignUp from "./pages/sign-in-sign-up/SignInSignUp";
+import SignIn from './components/sign-in/SignIn';
+import SignUp from './components/sign-up/SignUp';
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { RootStore } from './store/RootStore';
 
-// import './App.scss';
 
 const rootStore = new RootStore();
 export const RootStoreContext = React.createContext(rootStore);
@@ -49,7 +49,8 @@ const App: React.FC = () => {
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
             <Route exact path="/checkout" component={CheckoutPage} />
-            <Route exact path="/signin" render={() => userStore.currentUser ? (<Redirect to='/' />) : (<SignInSignUp />) } />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/signin" render={() => userStore.currentUser ? (<Redirect to='/' />) : (<SignIn />) } />
           </Switch>
         </RootStoreContext.Provider>
       )}

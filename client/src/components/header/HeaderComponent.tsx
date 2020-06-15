@@ -7,7 +7,6 @@ import { ReactComponent as Logo } from "../../assests/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
 import { RootStoreContext } from "../../App";
 import CartIcon from '../cart-icon/CartIcon';
-import './HeaderComponent.scss';
 
 const { Header } = Layout;
 interface HeaderComponentProps {

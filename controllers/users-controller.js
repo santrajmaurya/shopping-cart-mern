@@ -11,7 +11,16 @@ const signup = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-  const { name, email, password, confirmPassword } = req.body;
+  const {
+    name,
+    email,
+    password,
+    confirm,
+    phone,
+    captcha,
+    agreement,
+    prefix
+  } = req.body;
 
   let existingUser;
 
@@ -36,10 +45,12 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image:
-      "https://cdn.icon-icons.com/icons2/35/PNG/512/admin_person_user_man_2839.png",
     password,
-    confirmPassword,
+    confirm,
+    phone,
+    captcha,
+    agreement,
+    prefix,
     products: [],
   });
 
@@ -75,7 +86,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({
+  res.status(201).json({
     message: "Logged in!",
     user: existingUser.toObject({ getters: true }),
   });
