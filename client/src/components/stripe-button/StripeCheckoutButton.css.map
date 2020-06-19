@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "StripeCheckoutButton.scss"
+    ],
+    "names": [],
+    "file": "StripeCheckoutButton.css"
+}

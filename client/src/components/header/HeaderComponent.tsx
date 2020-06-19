@@ -4,7 +4,6 @@ import { Observer } from "mobx-react-lite";
 import { Layout, Menu, Row, Col } from 'antd';
 
 import { ReactComponent as Logo } from "../../assests/crown.svg";
-import { auth } from "../../firebase/firebase.utils";
 import { RootStoreContext } from "../../App";
 import CartIcon from '../cart-icon/CartIcon';
 
@@ -45,9 +44,9 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
                 <Menu.Item key="/contact">
                   <Link to="/contact">Contact</Link>
                 </Menu.Item>
-                {userStore.currentUser ? (
+                {userStore.isLogin ? (
                   <Menu.Item key="/signout">
-                    <Link to="/" onClick={() => auth.signOut()}>Sign Out</Link>
+                    <Link to="/" onClick={() => userStore.signOut()}>Sign Out</Link>
                   </Menu.Item>
                 ) : (
                     <Menu.Item key="/signin">

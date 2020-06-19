@@ -13,14 +13,9 @@ export class UserStore {
         this.rootStore = rootStore;
     }
 
-    @observable currentUser: any = null;
     @observable user: any = [];
     @observable status: string = "initial";
-
-    @action
-    setCurrentUser = async (user: any) => {
-         this.currentUser = await user;
-    }
+    @observable isLogin: boolean = false;
 
     @action
     signUp = async (model:any) => {
@@ -36,7 +31,6 @@ export class UserStore {
                 this.status = "error";
             });
         }
-
     };
 
     @action
@@ -46,6 +40,7 @@ export class UserStore {
             if (response.status === 201) {
                 runInAction(() => {
                     this.status = "success";
+                    this.isLogin = true;
                 })
             } 
         } catch (error) {
@@ -53,6 +48,10 @@ export class UserStore {
                 this.status = "error";
             });
         }
-
     };
+
+    @action
+    signOut = async () => {
+        this.isLogin = false;
+    }
 }

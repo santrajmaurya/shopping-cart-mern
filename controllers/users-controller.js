@@ -50,8 +50,7 @@ const signup = async (req, res, next) => {
     phone,
     captcha,
     agreement,
-    prefix,
-    products: [],
+    prefix
   });
 
   try {

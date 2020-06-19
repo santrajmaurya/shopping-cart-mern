@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-// const placesRoutes = require("./routes/places-routes");
+const adminRoutes = require("./routes/admin-routes");
 const usersRoutes = require("./routes/users-routes");
 const HttpError = require("./models/http-error");
 
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   next();
 });
-// app.use("/api/places", placesRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {

@@ -6,7 +6,8 @@ import {
     Row,
     Col,
     Checkbox,
-    Button
+    Button, 
+    notification
 } from 'antd';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Observer } from "mobx-react-lite";
@@ -54,7 +55,21 @@ const SignUp = () => {
     const handleSignUp = (values: any) => {
         console.log('Received values of form: ', values);
         userStore.signUp(values);
-        history.push('/');
+        if(userStore.status == 'success') {
+            notification['success']({
+                message: 'Registration Successfull',
+                description:
+                    'Registration Successfull. Please Login.',
+            });
+            history.push('/signin');
+        } else {
+            notification['error']({
+                message: 'Registration Failed',
+                description:
+                    'Registration Failed. Please try again.',
+            });
+        }
+        
     };
 
     const prefixSelector = (

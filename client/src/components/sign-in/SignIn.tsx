@@ -5,6 +5,8 @@ import {
   Input,
   Checkbox,
   Button,
+  notification,
+  Spin
 } from 'antd';
 
 import { Observer } from "mobx-react-lite";
@@ -50,10 +52,20 @@ const SignIn = () => {
   const history = useHistory();
 
   const handleLogin = (values: any) => {
-    console.log('Received values of form: ', values);
     userStore.login(values);
     if (userStore.status === 'success') {
+      notification['success']({
+        message: 'Signin Successfull',
+        description:
+          'Signin Successfull. Please continue.',
+      });
       history.push('/');
+    } else {
+      notification['error']({
+        message: 'Signin Failed',
+        description:
+          'Signin Failed. Please try again.',
+      });
     }
   };
 
