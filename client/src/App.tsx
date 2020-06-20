@@ -23,9 +23,9 @@ const App: React.FC = () => {
   const { userStore, productStore } = useContext(RootStoreContext);
   const products = productStore.productsList;
 
-  useEffect(() => {
-    productStore.getAdminProducts();
-  }, [products]);
+  // useEffect(() => {
+  //   productStore.getAdminProducts();
+  // }, [products, productStore]);
 
   return (
     <Observer>

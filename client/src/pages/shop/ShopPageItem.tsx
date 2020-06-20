@@ -22,6 +22,7 @@ const ShopPageItem: React.FC<ProductItemProps> = ({ products }) => {
                             md={8}
                             sm={12}
                             style={{ padding: "8px" }}
+                            key={product.id}
                         >
                             <Card
                                 bordered={true}

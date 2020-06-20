@@ -1,26 +1,42 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Button, Col, Card, Skeleton, Empty, notification, Modal, Form } from "antd";
 // import { Observer } from "mobx-react-lite";
 import { observer } from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
 import { RootStoreContext } from "../../App";
 
 const { Meta } = Card;
-interface ProductItemProps {
-    products: any,
-    loading: boolean
-}
+// interface ProductItemProps {
+//     products: any,
+//     loading: boolean
+// }
 
 // type Event = React.MouseEvent<HTMLElement, MouseEvent>;
 type Event = any;
 
-const ProductItem: React.FC<ProductItemProps> = observer(({ products, loading }) => {
-    const [form] = Form.useForm();
+const ProductItem: React.FC = observer(() => {
+    const [loading, setLoading] = useState(false);
     const { productStore } = useContext(RootStoreContext);
     const [isModalOpen, setIsModal] = useState(false);
     const [deleteId, setDeleteId] = useState('');
     const history = useHistory();
+    const products = productStore.productsList;
+    const status = productStore.status;
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchProducts = async () => {
+            await productStore.getAdminProducts();
+        }
+        fetchProducts();
+        if (status === 'success') {
+            setLoading(false);
+        }
+    }, [status]);
+
+    console.log('loading', loading);
 
     const deleteProduct = (e: Event) => {
         showModal();
@@ -62,10 +78,8 @@ const ProductItem: React.FC<ProductItemProps> = observer(({ products, loading })
     };
 
     return (
-        // <Observer>
-        //     {() => (
                 <>
-                    {products.map((product: any) =>
+            {products && products.map((product: any) =>
                         <Col
                             lg={6}
                             md={8}
@@ -103,8 +117,6 @@ const ProductItem: React.FC<ProductItemProps> = observer(({ products, loading })
                         </Col>
                     )}
                 </>
-        //     )}
-        // </Observer>
     )
 })
 

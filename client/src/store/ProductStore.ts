@@ -45,8 +45,9 @@ export class ProductStore {
                     this.status = "success";
                     this.products = toJS(response.products);
                 })
-            } 
-           ;
+            } else {
+                this.status = "error";
+            }
         } catch (error) {
             runInAction(() => {
                 this.status = "error";
