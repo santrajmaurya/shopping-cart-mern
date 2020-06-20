@@ -1,3 +1,10 @@
+export interface IProduct {
+    title: string,
+    description: string,
+    price: number,
+    image: string
+}
+
 export interface IDirectory {
     title: string,
     imageUrl: string,

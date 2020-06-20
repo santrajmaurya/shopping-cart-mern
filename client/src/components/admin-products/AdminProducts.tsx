@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Row } from "antd";
 import { Observer } from "mobx-react-lite";
 
-import ProductItem from "../product-item/ProductItem";
+import ProductItem from "./ProductItem";
 import { RootStoreContext } from "../../App";
 
 const AdminProducts: React.FC = () => {
@@ -16,7 +16,7 @@ const AdminProducts: React.FC = () => {
     if (productStore.status === 'success') {
       setLoading(false);
     }
-  }, [products]);
+  }, [products, productStore]);
 
   console.log("loading", loading);
 

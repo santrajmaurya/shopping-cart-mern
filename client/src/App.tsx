@@ -5,7 +5,8 @@ import { Observer } from 'mobx-react-lite';
 import HeaderComponent from "./components/header/HeaderComponent";
 import HomePage from "./pages/homepage/HomePage";
 import ShopPage from "./pages/shop/ShopPage";
-import AddProducts from './components/add-products/AddProducts';
+import AddProducts from './components/admin-products/AddProducts';
+import EditProducts from './components/admin-products/EditProducts';
 import AdminProducts from './components/admin-products/AdminProducts';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import SignIn from './components/sign-in/SignIn';
@@ -19,11 +20,12 @@ export const RootStoreContext = React.createContext(rootStore);
 
 
 const App: React.FC = () => {
-  const { userStore } = useContext(RootStoreContext);
+  const { userStore, productStore } = useContext(RootStoreContext);
+  const products = productStore.productsList;
 
-  // useEffect(() => {
- 
-  // }, [userStore]);
+  useEffect(() => {
+    productStore.getAdminProducts();
+  }, [products]);
 
   return (
     <Observer>
@@ -33,8 +35,9 @@ const App: React.FC = () => {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
-            <Route path="/add-products" component={AddProducts} />
             <Route path="/admin-products" component={AdminProducts} />
+            <Route path="/add-products" component={AddProducts} />
+            <Route path="/edit-product/:productId" component={EditProducts} />
             <Route exact path="/checkout" component={CheckoutPage} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" render={() => userStore.isLogin ? (<Redirect to='/' />) : (<SignIn />) } />

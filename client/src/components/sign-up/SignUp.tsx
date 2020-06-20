@@ -52,10 +52,10 @@ const SignUp = () => {
     const { userStore } = useContext(RootStoreContext);
     const history = useHistory();
 
-    const handleSignUp = (values: any) => {
+    const handleSignUp = async (values: any) => {
         console.log('Received values of form: ', values);
-        userStore.signUp(values);
-        if(userStore.status == 'success') {
+        await userStore.signUp(values);
+        if(userStore.signUpStatus === 'success') {
             notification['success']({
                 message: 'Registration Successfull',
                 description:

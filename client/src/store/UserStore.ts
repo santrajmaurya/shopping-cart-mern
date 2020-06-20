@@ -14,7 +14,8 @@ export class UserStore {
     }
 
     @observable user: any = [];
-    @observable status: string = "initial";
+    @observable signInStatus: string = "initial";
+    @observable signUpStatus: string = "initial";
     @observable isLogin: boolean = false;
 
     @action
@@ -23,12 +24,14 @@ export class UserStore {
             const response = await this.rootStore.userApi.signUp(model);
             if (response.status === 201) {
                 runInAction(() => {
-                    this.status = "success";
+                    this.signUpStatus = "success";
                 })
-            } 
+            } else {
+                 this.signUpStatus = "error";
+            }
         } catch (error) {
             runInAction(() => {
-                this.status = "error";
+                this.signUpStatus = "error";
             });
         }
     };
@@ -39,13 +42,15 @@ export class UserStore {
             const response = await this.rootStore.userApi.login(model);
             if (response.status === 201) {
                 runInAction(() => {
-                    this.status = "success";
+                    this.signInStatus = "success";
                     this.isLogin = true;
                 })
-            } 
+            } else {
+                this.signInStatus = "error";
+            }
         } catch (error) {
             runInAction(() => {
-                this.status = "error";
+                this.signInStatus = "error";
             });
         }
     };

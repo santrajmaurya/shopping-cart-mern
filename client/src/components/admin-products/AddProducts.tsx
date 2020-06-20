@@ -3,7 +3,11 @@ import {
     Form,
     Input,
     Button,
-    notification
+    notification,
+    Typography,
+    Divider, 
+    Row,
+    Col
 } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { Observer } from "mobx-react-lite";
@@ -11,6 +15,7 @@ import { Observer } from "mobx-react-lite";
 import { RootStoreContext } from "../../App";
 
 // const { Option } = Select;
+const { Title } = Typography;
 
 const formItemLayout = {
     labelCol: {
@@ -45,13 +50,13 @@ const tailFormItemLayout = {
 
 const AddProducts: React.FC = () => {
     const [form] = Form.useForm();
-    const {  productStore } = useContext(RootStoreContext);
+    const { productStore } = useContext(RootStoreContext);
     const history = useHistory();
 
-    const handleAddProducts = (values: any) => {
+    const handleAddProducts = async (values: any) => {
         console.log('Received values of form: ', values);
-        productStore.addProduct(values);
-        if (productStore.status === 'success') {
+       await productStore.addProduct(values);
+        if (productStore.addProductStatus === 'success') {
             notification['success']({
                 message: 'Adding Product Successfull',
                 description:
@@ -70,12 +75,18 @@ const AddProducts: React.FC = () => {
     return (
         <Observer>
             {() => (
+                <>
+                    <Row style={{ marginTop: '10px' }}>
+                        <Col span={8} offset={8}>
+                            <Title style={{ color: '#1da57a' }}>Add Product</Title>
+                        </Col>
+                    </Row>
+                    <Divider style={{ border: '1px solid #d6c8c8', marginTop: 'auto' }} />
                 <Form
                     {...formItemLayout}
                     form={form}
                     name="addProduct"
                     onFinish={handleAddProducts}
-                    style={{ marginTop: '50px' }}
                     scrollToFirstError
                 >
                     <Form.Item
@@ -133,6 +144,7 @@ const AddProducts: React.FC = () => {
                         </Button>
                     </Form.Item>
                 </Form>
+                </>
             )}
         </Observer>
     );

@@ -34,32 +34,18 @@ class Api {
         return response;
     }
    
-    editProduct = async (model: any) => {
+    editProduct = async (model: any, productId: any) => {
         const headers = new Headers()
-        const id = model.id;
         headers.append("Content-Type", "application/json");
         var options = {
             method: "PATCH",
             headers,
             body: JSON.stringify(model)
         }
-        const request = new Request(baseUrl + "/" + id, options);
+        const request = new Request(baseUrl + "/edit-product/" + productId, options);
         const response = await fetch(request);
         return response;
     }
-
-    // editProduct = async (model: any) => {
-    //     const headers = new Headers()
-    //     headers.append("Content-Type", "application/json");
-    //     var options = {
-    //         method: "PATCH",
-    //         headers,
-    //         body: JSON.stringify(model)
-    //     }
-    //     const request = new Request(baseUrl, options);
-    //     const response = await fetch(request);
-    //     return response;
-    // }
 
     deleteProduct = async (id: any) => {
         const headers = new Headers();

@@ -11,27 +11,32 @@ export class ProductStore {
 
     @observable products: any = [];
     @observable status: string = "initial";
+    @observable editStatus: string = "initial";
+    @observable addProductStatus: string = "initial";
+    @observable deleteProductStatus: string = "initial";
+    
     
 
     @action
     addProduct = async (model:any) => {
         try {
             const response = await this.rootStore.productApi.addProduct(model);
-            if (response.status === 201) {
+            if (response.ok) {
                 runInAction(() => {
-                    this.status = "success";
+                    this.addProductStatus = "success";
                 })
+            } else {
+                this.addProductStatus = "error";
             }
         } catch (error) {
             runInAction(() => {
-                this.status = "error";
+                this.addProductStatus = "error";
             });
         }
     };
 
     @action
     getAdminProducts = async () => {
-        debugger
         try {
             const response = await this.rootStore.productApi.getAdminProducts();
             console.log('res', toJS(response.products));
@@ -54,33 +59,34 @@ export class ProductStore {
         debugger
         try {
             const response = await this.rootStore.productApi.deleteProduct(id);
-            if (response) {
+            if (response.ok) {
                 runInAction(() => {
-                    this.status = "success";
+                    return this.deleteProductStatus = "success";
                 })
-            } 
-           ;
+            } else {
+                this.deleteProductStatus = "error";
+            }
         } catch (error) {
             runInAction(() => {
-                this.status = "error";
+                this.deleteProductStatus = "error";
             });
         }
     };
 
     @action
-    editAdminProducts = async (id: any) => {
+    editAdminProducts = async (model: any, productId: string) => {
         debugger
         try {
-            const response = await this.rootStore.productApi.editProduct(id);
-            if (response) {
+            const response = await this.rootStore.productApi.editProduct(model, productId);
+            if (response.status === 200) {
                 runInAction(() => {
-                    this.status = "success";
+                    this.editStatus = "success";
                 })
             } 
            ;
         } catch (error) {
             runInAction(() => {
-                this.status = "error";
+                this.editStatus = "error";
             });
         }
     };

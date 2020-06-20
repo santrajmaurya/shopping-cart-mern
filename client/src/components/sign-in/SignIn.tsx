@@ -51,9 +51,9 @@ const SignIn = () => {
   const { userStore } = useContext(RootStoreContext);
   const history = useHistory();
 
-  const handleLogin = (values: any) => {
-    userStore.login(values);
-    if (userStore.status === 'success') {
+  const handleLogin = async (values: any) => {
+    await userStore.login(values);
+    if (userStore.signInStatus === 'success') {
       notification['success']({
         message: 'Signin Successfull',
         description:

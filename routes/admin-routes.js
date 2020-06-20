@@ -21,7 +21,7 @@ router.post(
 );
 
 router.patch(
-  "/:productId",
+  "/edit-product/:productId",
   [
     check("title").not().isEmpty(),
     check("description").isLength({ min: 5 }),
