@@ -8,6 +8,8 @@ import ShopPage from "./pages/shop/ShopPage";
 import AddProducts from './components/admin-products/AddProducts';
 import EditProducts from './components/admin-products/EditProducts';
 import AdminProducts from './components/admin-products/AdminProducts';
+import ContactUs from './components/ContactUs/ContactUs';
+import OrderList from './components/orders/OrderList';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import SignIn from './components/sign-in/SignIn';
 import SignUp from './components/sign-up/SignUp';
@@ -23,9 +25,9 @@ const App: React.FC = () => {
   const { userStore, productStore } = useContext(RootStoreContext);
   const products = productStore.productsList;
 
-  // useEffect(() => {
-  //   productStore.getAdminProducts();
-  // }, [products, productStore]);
+  /*useEffect(() => {
+    productStore.getAdminProducts();
+  }, [products, productStore]); */
 
   return (
     <Observer>
@@ -38,6 +40,8 @@ const App: React.FC = () => {
             <Route path="/admin-products" component={AdminProducts} />
             <Route path="/add-products" component={AddProducts} />
             <Route path="/edit-product/:productId" component={EditProducts} />
+            <Route exact path="/contact" component={ContactUs} />
+            <Route exact path="/orders" component={OrderList} />
             <Route exact path="/checkout" component={CheckoutPage} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" render={() => userStore.isLogin ? (<Redirect to='/' />) : (<SignIn />) } />

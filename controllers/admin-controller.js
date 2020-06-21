@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
-const Admin = require("../models/admin");
+const Product = require("../models/product");
 const User = require("../models/user");
 
 // const getPlaceById = async (req, res, next) => {
@@ -56,7 +56,7 @@ const User = require("../models/user");
 const getAdminProduct = async (req, res, next) => {
   let products;
   try {
-     products = await Admin.find();
+     products = await Product.find();
   } catch (err) {
     const error = new HttpError("Feching products failed, please try again.", 500);
     return next(error);
@@ -74,7 +74,7 @@ const addProduct = async (req, res, next) => {
   }
   const { title, description, image, price } = req.body;
 
-  const createdProduct = new Admin({
+  const createdProduct = new Product({
     title,
     description,
     image,
@@ -108,7 +108,7 @@ const addProduct = async (req, res, next) => {
     );
     return next(error);
   }
-  res.status(201).json({ admin: createdProduct });
+  res.status(201).json({ product: createdProduct });
 };
 
 const editProduct = async (req, res, next) => {
@@ -122,7 +122,7 @@ const editProduct = async (req, res, next) => {
 
   let product;
   try {
-    product = await Admin.findById(productId);
+    product = await Product.findById(productId);
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not edit product.",
@@ -154,7 +154,7 @@ const deleteAdminProduct = async (req, res, next) => {
 
   let products;
   try {
-    products = await Admin.findById(productId).populate();
+    products = await Product.findById(productId).populate();
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not delete the place.",

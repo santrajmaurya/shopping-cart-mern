@@ -1,22 +1,39 @@
-import React from 'react';
-import { Button, Col, Card, Tag, Skeleton, Empty, Avatar } from "antd";
-import { Observer } from "mobx-react-lite";
+import React, { useState, useContext, useEffect } from 'react';
+import { Button, Col, Card, Tag, Skeleton, Empty, Avatar, Spin } from "antd";
+import { observer } from "mobx-react-lite";
+
+import { RootStoreContext } from "../../App";
 
 
 const { Meta } = Card;
 
-interface ProductItemProps {
-    products: any
-}
+const ShopPageItem: React.FC = observer(() => {
+    const { productStore } = useContext(RootStoreContext);
+    const [loading, setLoading] = useState(false);
+    const products = productStore.productsList;
+    const status = productStore.status;
 
-const ShopPageItem: React.FC<ProductItemProps> = ({ products }) => {
-    console.log('item', products);
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchProducts = async () => {
+            await productStore.getAdminProducts();
+        }
+        fetchProducts();
+        if (status === 'success') {
+            setLoading(false);
+        }
+    }, [status]);
+
+    console.log('loading', loading);
+
+    const handleAddCart = (product: any) => {
+        console.log('p', product)
+    }
 
     return (
-        <Observer>
-            {() => (
                 <>
-                    {products.map((product: any) =>
+                    {products && products.map((product: any) =>
                         <Col
                             lg={6}
                             md={8}
@@ -34,18 +51,21 @@ const ShopPageItem: React.FC<ProductItemProps> = ({ products }) => {
                                 <p style={{ fontWeight: 'bold', marginTop: '10px' }}>{`Rs. ${product.price}`}</p>
                             </Card>
                             <Col style={{ marginTop: '15px', marginLeft: '85px' }}>
-                                <Button type="primary" htmlType="submit">
+                                <Button id={product.id} type="primary" htmlType="submit" onClick={() => handleAddCart(product)}>
                                     Add to cart
                             </Button>
                             </Col>
                         </Col>
                     )}
-
+                    {loading && (
+                        <div style={{ marginTop: '200px', marginLeft: '600px' }}>
+                            <Spin />
+                        </div>
+                    )
+                    }
                 </>
-            )}
-        </Observer>
     )
-}
+})
 
 export default ShopPageItem;
 
