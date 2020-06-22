@@ -58,11 +58,9 @@ const EditProducts: React.FC = () => {
     const { rootStore } = useContext(RootStoreContext);
     const { productStore } = rootStore;
     const productId = useParams<RouteParams>().productId;
-    console.log('productId', productId);
     // const editedItem = products.filter((product: any) => product.id === productId);
 
     const handleEditProducts = async (values: any) => {
-        console.log('Received values of form: ', values);
         await productStore.editAdminProducts(values, productId);
         if (productStore.editStatus === 'success') {
             notification['success']({

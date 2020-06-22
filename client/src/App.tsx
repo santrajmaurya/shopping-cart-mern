@@ -13,9 +13,7 @@ import OrderList from './components/orders/OrderList';
 import CheckoutPage from './pages/checkout/CheckoutPage';
 import SignIn from './components/sign-in/SignIn';
 import SignUp from './components/sign-up/SignUp';
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { RootStore } from './store/RootStore';
-
 
 const rootStore = new RootStore();
 
@@ -32,9 +30,7 @@ const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userId, setUserId] = useState(null);
   const { rootStore } = useContext(RootStoreContext);
-  const { userStore, productStore } = rootStore;
-  const products = productStore.productsList;
-
+  const { userStore } = rootStore;
 
   const login = useCallback((uid) => {
     setIsLoggedIn(true);

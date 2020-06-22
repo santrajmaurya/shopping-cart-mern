@@ -54,7 +54,6 @@ const SignUp = () => {
     const history = useHistory();
 
     const handleSignUp = async (values: any) => {
-        console.log('Received values of form: ', values);
         await userStore.signUp(values);
         if(userStore.signUpStatus === 'success') {
             notification['success']({

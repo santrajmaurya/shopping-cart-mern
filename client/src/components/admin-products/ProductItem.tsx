@@ -4,7 +4,6 @@ import {
   Col,
   Card,
   Skeleton,
-  Empty,
   notification,
   Modal,
   Spin,
@@ -37,9 +36,8 @@ const ProductItem: React.FC = observer(() => {
     if (status === "success") {
       setLoading(false);
     }
-  }, [status]);
+  }, [status, productStore]);
 
-  console.log("loading", loading);
 
   const deleteProduct = (e: Event) => {
     showModal();

@@ -28,7 +28,7 @@ export class CartStore {
     addToCart = async (model:any) => {
         try {
             const response = await this.rootStore.cartApi.addCart(model);
-            if (response) {
+            if (response.ok) {
                 runInAction(() => {
                     this.addCartStatus = "success";
                 })

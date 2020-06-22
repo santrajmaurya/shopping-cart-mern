@@ -41,7 +41,6 @@ export class UserStore {
     login = async (model:any) => {
         try {
             const response = await this.rootStore.userApi.login(model);
-            console.log('lo res', response);
             if (response) {
                 runInAction(() => {
                     this.signInStatus = "success";

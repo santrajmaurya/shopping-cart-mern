@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Typography, Divider } from 'antd';
+import { List, Divider } from 'antd';
 
 const OrderList: React.FC = () => {
 

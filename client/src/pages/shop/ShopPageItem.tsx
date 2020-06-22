@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Button, Col, Card, Tag, Skeleton, Empty, Avatar, Spin, notification } from "antd";
+import { Button, Col, Card, Spin, notification } from "antd";
 import { observer } from "mobx-react-lite";
 
 import { RootStoreContext } from "../../App";
@@ -24,9 +24,7 @@ const ShopPageItem: React.FC = observer(() => {
         if (status === 'success') {
             setLoading(false);
         }
-    }, [status]);
-
-    console.log('loading', loading);
+    }, [status, productStore]);
 
     const handleAddCart = async (product: any) => {
         const addedProduct = {

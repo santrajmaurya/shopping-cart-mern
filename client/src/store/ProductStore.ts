@@ -39,7 +39,6 @@ export class ProductStore {
     getAdminProducts = async () => {
         try {
             const response = await this.rootStore.productApi.getAdminProducts();
-            console.log('res', toJS(response.products));
             if (response) {
                 runInAction(() => {
                     this.status = "success";
