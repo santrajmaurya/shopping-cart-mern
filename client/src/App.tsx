@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Observer } from 'mobx-react-lite';
 
@@ -18,21 +18,39 @@ import { RootStore } from './store/RootStore';
 
 
 const rootStore = new RootStore();
-export const RootStoreContext = React.createContext(rootStore);
+
+export const RootStoreContext = React.createContext({
+  rootStore,
+  isLoggedIn: false,
+  userId: null,
+  login: (id: string) => { },
+  logout: () => { }
+});
 
 
 const App: React.FC = () => {
-  const { userStore, productStore } = useContext(RootStoreContext);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userId, setUserId] = useState(null);
+  const { rootStore } = useContext(RootStoreContext);
+  const { userStore, productStore } = rootStore;
   const products = productStore.productsList;
 
-  /*useEffect(() => {
-    productStore.getAdminProducts();
-  }, [products, productStore]); */
+
+  const login = useCallback((uid) => {
+    setIsLoggedIn(true);
+    setUserId(uid);
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+    setUserId(null);
+  }, []);
+  
 
   return (
     <Observer>
       {() => (
-        <RootStoreContext.Provider value={rootStore}>
+        <RootStoreContext.Provider value={{ rootStore: rootStore, isLoggedIn: isLoggedIn, login: login, logout: logout, userId: userId  }}>
           <HeaderComponent />
           <Switch>
             <Route exact path="/" component={HomePage} />

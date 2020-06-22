@@ -17,6 +17,7 @@ export class UserStore {
     @observable signInStatus: string = "initial";
     @observable signUpStatus: string = "initial";
     @observable isLogin: boolean = false;
+    @observable userId: string = '';
 
     @action
     signUp = async (model:any) => {
@@ -35,14 +36,16 @@ export class UserStore {
             });
         }
     };
-
+   
     @action
     login = async (model:any) => {
         try {
             const response = await this.rootStore.userApi.login(model);
-            if (response.status === 201) {
+            console.log('lo res', response);
+            if (response) {
                 runInAction(() => {
                     this.signInStatus = "success";
+                    this.userId = response.user.id;
                     this.isLogin = true;
                 })
             } else {

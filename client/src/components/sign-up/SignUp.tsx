@@ -49,7 +49,8 @@ const tailFormItemLayout = {
 
 const SignUp = () => {
     const [form] = Form.useForm();
-    const { userStore } = useContext(RootStoreContext);
+    const { rootStore } = useContext(RootStoreContext);
+    const { userStore } = rootStore;
     const history = useHistory();
 
     const handleSignUp = async (values: any) => {

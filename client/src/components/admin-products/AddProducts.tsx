@@ -50,7 +50,9 @@ const tailFormItemLayout = {
 
 const AddProducts: React.FC = () => {
     const [form] = Form.useForm();
-    const { productStore } = useContext(RootStoreContext);
+    const { rootStore } = useContext(RootStoreContext);
+    const { userStore, productStore } = rootStore;
+    const products = productStore.productsList;
     const history = useHistory();
 
     const handleAddProducts = async (values: any) => {

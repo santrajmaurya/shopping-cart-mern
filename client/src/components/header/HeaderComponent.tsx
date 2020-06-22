@@ -12,7 +12,8 @@ interface HeaderComponentProps {
 }
 
 const HeaderComponent: React.FC<HeaderComponentProps> = () => {
-  const { userStore } = useContext(RootStoreContext);
+  const { rootStore } = useContext(RootStoreContext);
+  const { userStore } = rootStore;
 
   return (
     <Observer>

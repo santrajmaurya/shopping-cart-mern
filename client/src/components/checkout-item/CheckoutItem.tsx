@@ -17,7 +17,8 @@ interface CheckoutItemProps {
 }
 
 const CheckoutItem: React.FC<CheckoutItemProps> = ({ cartItem }) => {
-  const { cartStore } = useContext(RootStoreContext);
+    const { rootStore } = useContext(RootStoreContext);
+    const { cartStore } = rootStore;
     const { name, price, quantity, imageUrl } = cartItem;
 
   return (

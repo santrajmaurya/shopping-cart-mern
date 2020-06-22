@@ -8,7 +8,8 @@ import { Badge } from 'antd';
 import "./CartIcon.scss";
 
 const CartIcon: React.FC = () => {
-  const { cartStore } = useContext(RootStoreContext);
+  const { rootStore } = useContext(RootStoreContext);
+  const { cartStore } = rootStore;
 
   return (
     <Observer>

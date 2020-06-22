@@ -14,7 +14,8 @@ interface DirectoryProps {
 }
 
 const Directory: React.FC<DirectoryProps> = () => {
-  const { cartStore } = useContext(RootStoreContext);
+  const { rootStore } = useContext(RootStoreContext);
+  const { cartStore } = rootStore;
   const directoryDataCollection = cartStore.directoryDataCollection;
 
   return (

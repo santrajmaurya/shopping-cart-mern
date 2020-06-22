@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Button, Col, Card, Tag, Skeleton, Empty, Avatar, Spin } from "antd";
+import { Button, Col, Card, Tag, Skeleton, Empty, Avatar, Spin, notification } from "antd";
 import { observer } from "mobx-react-lite";
 
 import { RootStoreContext } from "../../App";
@@ -8,7 +8,8 @@ import { RootStoreContext } from "../../App";
 const { Meta } = Card;
 
 const ShopPageItem: React.FC = observer(() => {
-    const { productStore } = useContext(RootStoreContext);
+    const { rootStore, userId } = useContext(RootStoreContext);
+    const { productStore, cartStore } = rootStore;
     const [loading, setLoading] = useState(false);
     const products = productStore.productsList;
     const status = productStore.status;
@@ -27,8 +28,30 @@ const ShopPageItem: React.FC = observer(() => {
 
     console.log('loading', loading);
 
-    const handleAddCart = (product: any) => {
-        console.log('p', product)
+    const handleAddCart = async (product: any) => {
+        const addedProduct = {
+            title: product.title,
+            description: product.description,
+            image: product.image,
+            price: product.price,
+            quantity : 1,
+            productId: product.id,
+            userId: userId
+        }
+        await cartStore.addToCart(addedProduct);
+        if (cartStore.addCartStatus === 'success') {
+            notification['success']({
+                message: 'Adding cart Successfull',
+                description:
+                    'Adding cart Successfull. Please continue.',
+            });
+        } else {
+            notification['error']({
+                message: 'Adding cart Failed',
+                description:
+                    'Adding cart Failed. Please try again.',
+            });
+        }
     }
 
     return (
@@ -61,8 +84,7 @@ const ShopPageItem: React.FC = observer(() => {
                         <div style={{ marginTop: '200px', marginLeft: '600px' }}>
                             <Spin />
                         </div>
-                    )
-                    }
+                    )}
                 </>
     )
 })

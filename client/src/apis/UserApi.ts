@@ -24,7 +24,8 @@ class Api {
         }
         const request = new Request(`${baseUrl}/api/users/login`, options);
         const response = await fetch(request);
-        return response;
+        const responseData = await response.json()
+        return responseData;
     }
     }
 

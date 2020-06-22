@@ -12,7 +12,8 @@ interface CartDropdownProps  {
 }
 
 const CartDropdown: React.FC<CartDropdownProps & RouteComponentProps> = ({ history }) => {
-  const { cartStore } = useContext(RootStoreContext);
+  const { rootStore } = useContext(RootStoreContext);
+  const { cartStore } = rootStore;
 
   return (
     <Observer>

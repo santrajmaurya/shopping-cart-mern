@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, computed, toJS, runInAction } from 'mobx';
 
 import { RootStore } from './RootStore';
 import DirectoryData from './DirectoryData';
@@ -15,7 +15,34 @@ export class CartStore {
     @observable hidden: boolean = true;
     @observable.ref cartItems: ICartItems[] = [];
     @observable.ref directoryData: IDirectory[] = DirectoryData;
+    @observable addCartStatus: string = 'Initial';
     
+    
+
+    // @action
+    // addToCart = async (item: any ) => {
+    //     this.cartItems = await addItemToCart(this.cartItems, item);
+    // }
+
+    @action
+    addToCart = async (model:any) => {
+        try {
+            const response = await this.rootStore.cartApi.addCart(model);
+            if (response) {
+                runInAction(() => {
+                    this.addCartStatus = "success";
+                })
+            } else {
+                this.addCartStatus = "error";
+            }
+        } catch (error) {
+            runInAction(() => {
+                this.addCartStatus = "error";
+            });
+        }
+    };
+
+
     @action
     toggleCartIcon = () => {
         this.hidden = !this.hidden;

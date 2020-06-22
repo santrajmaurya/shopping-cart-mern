@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user");
@@ -50,7 +51,8 @@ const signup = async (req, res, next) => {
     phone,
     captcha,
     agreement,
-    prefix
+    prefix,
+    carts : []
   });
 
   try {
@@ -91,6 +93,5 @@ const login = async (req, res, next) => {
   });
 };
 
-// exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
