@@ -22,9 +22,8 @@ class Api {
         }
         const request = new Request(`${baseUrl}/api/cart/add`, options);
         const response = await fetch(request);
-        return response;
-        // const responseData = await response.json();
-        // return responseData;
+        const responseData = await response.json();
+        return responseData;
     }
    
     // editProduct = async (model: any, productId: any) => {

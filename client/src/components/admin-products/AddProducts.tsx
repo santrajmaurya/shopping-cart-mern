@@ -55,7 +55,6 @@ const AddProducts: React.FC = () => {
     const history = useHistory();
 
     const handleAddProducts = async (values: any) => {
-        console.log('Received values of form: ', values);
        await productStore.addProduct(values);
         if (productStore.addProductStatus === 'success') {
             notification['success']({

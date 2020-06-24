@@ -15,7 +15,8 @@ export class CartStore {
     @observable hidden: boolean = true;
     @observable.ref cartItems: ICartItems[] = [];
     @observable.ref directoryData: IDirectory[] = DirectoryData;
-    @observable addCartStatus: string = 'Initial';
+    @observable addCartStatus: string = 'Initial'
+    // @observable itemCount: number = 0;
     
     
 
@@ -28,9 +29,11 @@ export class CartStore {
     addToCart = async (model:any) => {
         try {
             const response = await this.rootStore.cartApi.addCart(model);
-            if (response.ok) {
+            if (response) {
                 runInAction(() => {
                     this.addCartStatus = "success";
+                    // this.itemCount = response.cart.quantity;
+                    this.cartItems = response.cart;
                 })
             } else {
                 this.addCartStatus = "error";
