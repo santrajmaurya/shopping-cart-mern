@@ -12,7 +12,20 @@ const userSchema = new Schema({
   captcha: { type: String, required: true },
   agreement: { type: Boolean, required: true },
   prefix: { type: Number, required: true },
-  carts: [{ type: mongoose.Types.ObjectId, required: true, ref: "Cart" }]
+  carts: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        title: { type: String, required: true },
+        description: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+      },
+    ],
 });
 
 userSchema.plugin(uniqueValidator);

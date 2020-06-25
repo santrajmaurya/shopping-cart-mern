@@ -16,7 +16,7 @@ export class CartStore {
     @observable.ref cartItems: ICartItems[] = [];
     @observable.ref directoryData: IDirectory[] = DirectoryData;
     @observable addCartStatus: string = 'Initial'
-    // @observable itemCount: number = 0;
+    @observable itemCount: number = 0;
     
     
 
@@ -78,12 +78,12 @@ export class CartStore {
         return toJS(this.cartItems);
     }
 
-    @computed
-    get itemCount(): number {
-        return this.cartItems.reduce((accumalatedQuantity: number, cartItem: any) =>
-            accumalatedQuantity + cartItem.quantity, 0
-        );
-    }
+    // @computed
+    // get itemCount(): number {
+    //     return this.cartItems.reduce((accumalatedQuantity: number, cartItem: any) =>
+    //         accumalatedQuantity + cartItem.quantity, 0
+    //     );
+    // }
 
     @computed
     get totalCartCount(): number {

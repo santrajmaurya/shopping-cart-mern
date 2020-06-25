@@ -22,4 +22,16 @@ router.post(
 
 router.post("/login", usersController.login);
 
+router.post(
+  "/add-cart",
+  [
+    check("title").not().isEmpty(),
+    check("description").not().isEmpty(),
+    check("image").not().isEmpty(),
+    check("price").not().isEmpty(),
+    check("quantity").not().isEmpty(),
+  ],
+  usersController.addCart
+);
+
 module.exports = router;

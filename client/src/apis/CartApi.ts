@@ -20,7 +20,7 @@ class Api {
             headers,
             body: JSON.stringify(model)
         }
-        const request = new Request(`${baseUrl}/api/cart/add`, options);
+        const request = new Request(`${baseUrl}/api/users/add-cart`, options);
         const response = await fetch(request);
         const responseData = await response.json();
         return responseData;

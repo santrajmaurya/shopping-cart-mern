@@ -27,6 +27,19 @@ class Api {
         const responseData = await response.json()
         return responseData;
     }
+    addCart = async (model: any) => {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let options = {
+            method: "POST",
+            headers,
+            body: JSON.stringify(model)
+        }
+        const request = new Request(`${baseUrl}/api/users/add-cart`, options);
+        const response = await fetch(request);
+        const responseData = await response.json();
+        return responseData;
+    }
     }
 
     export default Api;

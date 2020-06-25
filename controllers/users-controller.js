@@ -20,7 +20,7 @@ const signup = async (req, res, next) => {
     phone,
     captcha,
     agreement,
-    prefix
+    prefix,
   } = req.body;
 
   let existingUser;
@@ -52,7 +52,7 @@ const signup = async (req, res, next) => {
     captcha,
     agreement,
     prefix,
-    carts : []
+    carts: [],
   });
 
   try {
@@ -93,5 +93,76 @@ const login = async (req, res, next) => {
   });
 };
 
+const addCart = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { userId } = req.body;
+
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError(
+      "Creating cart failed kk, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("Could not find user for provided id.", 404);
+    return next(error);
+  }
+
+  try {
+    if (user.carts !== null) {
+      const { productId } = req.body;
+      const cartProductIndex = user.carts.findIndex((cp) => {
+        return cp.productId.toString() === productId.toString();
+      });
+      if (cartProductIndex >= 0) {
+        user.carts[cartProductIndex].quantity =
+          user.carts[cartProductIndex].quantity + 1;
+        await user.save();
+      } else if (cartProductIndex === -1) {
+        const { title, description, image, price, quantity, productId } = req.body;
+        let createdCart = {};
+        createdCart.title = title;
+        createdCart.description = description;
+        createdCart.image = image;
+        createdCart.price = price;
+        createdCart.quantity = quantity;
+        createdCart.productId = productId;
+        user.carts.push(createdCart);
+        await user.save();
+      }
+    } else {
+      const { title, description, image, price, quantity, productId } = req.body;
+      let createdCart = {};
+      createdCart.title = title;
+      createdCart.description = description;
+      createdCart.image = image;
+      createdCart.price = price;
+      createdCart.quantity = quantity;
+      createdCart.productId = productId;
+      user.carts.push(createdCart);
+      await user.save();
+    }
+  } catch (err) {
+    console.log("err", err);
+    const error = new HttpError(
+      "Creating cart failed rrr, please try again.",
+      500
+    );
+    return next(error);
+  }
+  res.status(201).json({ user: user });
+};
+
 exports.signup = signup;
 exports.login = login;
+exports.addCart = addCart;
