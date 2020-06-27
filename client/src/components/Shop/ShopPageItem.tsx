@@ -9,7 +9,7 @@ const { Meta } = Card;
 
 const ShopPageItem: React.FC = observer(() => {
     const { rootStore, userId } = useContext(RootStoreContext);
-    const { productStore, cartStore } = rootStore;
+    const { productStore, userStore } = rootStore;
     const [loading, setLoading] = useState(false);
     const products = productStore.productsList;
     const status = productStore.status;
@@ -36,8 +36,8 @@ const ShopPageItem: React.FC = observer(() => {
             productId: product.id,
             userId: userId
         }
-        await cartStore.addToCart(addedProduct);
-        if (cartStore.addCartStatus === 'success') {
+        await userStore.addToCart(addedProduct);
+        if (userStore.addCartStatus === 'success') {
             notification['success']({
                 message: 'Adding cart Successfull',
                 description:

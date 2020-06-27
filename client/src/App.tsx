@@ -3,14 +3,13 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { Observer } from 'mobx-react-lite';
 
 import HeaderComponent from "./components/header/HeaderComponent";
-import HomePage from "./pages/homepage/HomePage";
-import ShopPage from "./pages/shop/ShopPage";
+import ShopPage from "./components/Shop/ShopPage";
 import AddProducts from './components/admin-products/AddProducts';
 import EditProducts from './components/admin-products/EditProducts';
 import AdminProducts from './components/admin-products/AdminProducts';
 import ContactUs from './components/ContactUs/ContactUs';
 import OrderList from './components/orders/OrderList';
-import CheckoutPage from './pages/checkout/CheckoutPage';
+import CheckoutPage from './components/checkout/CheckoutPage';
 import SignIn from './components/sign-in/SignIn';
 import SignUp from './components/sign-up/SignUp';
 import { RootStore } from './store/RootStore';
@@ -49,7 +48,7 @@ const App: React.FC = () => {
         <RootStoreContext.Provider value={{ rootStore: rootStore, isLoggedIn: isLoggedIn, login: login, logout: logout, userId: userId  }}>
           <HeaderComponent />
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={ShopPage} />
             <Route path="/shop" component={ShopPage} />
             <Route path="/admin-products" component={AdminProducts} />
             <Route path="/add-products" component={AddProducts} />

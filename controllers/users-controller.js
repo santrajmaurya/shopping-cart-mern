@@ -107,7 +107,7 @@ const addCart = async (req, res, next) => {
     user = await User.findById(userId);
   } catch (err) {
     const error = new HttpError(
-      "Creating cart failed kk, please try again later.",
+      "Creating cart failed, please try again later.",
       500
     );
     return next(error);
@@ -155,7 +155,99 @@ const addCart = async (req, res, next) => {
   } catch (err) {
     console.log("err", err);
     const error = new HttpError(
-      "Creating cart failed rrr, please try again.",
+      "Creating cart failed , please try again.",
+      500
+    );
+    return next(error);
+  }
+  res.status(201).json({ user: user });
+};
+
+const removeItemFromCart = async (req, res, next) => {
+  const {userId, productId} = req.body;
+  let user, item;
+   try {
+     user = await User.findById(userId);
+     item = user.carts.find((product) => {
+       return product.productId.toString() === productId.toString();
+     });
+   } catch (err) {
+     const error = new HttpError(
+       "Removing item failed, please try again later.",
+       500
+     );
+     return next(error);
+   }
+  
+  try {
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await item.remove();
+        await user.save({session: sess});
+        await sess.commitTransaction();
+      } catch (err) {
+    console.log("err", err);
+    const error = new HttpError(
+      "Removing item failed , please try again.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(200).json({ message: "Deleted product.", user: user });
+};
+
+const decreaseItemIncart = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
+  }
+  const { userId, productId } = req.body;
+
+  let user, item;
+  try {
+    user = await User.findById(userId);
+    item = user.carts.find((product) => {
+      return product.productId.toString() === productId.toString();
+    });
+  } catch (err) {
+    const error = new HttpError(
+      "Removing item from cart failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError("Could not find user for provided id.", 404);
+    return next(error);
+  }
+
+  try {
+    if (item.quantity > 1) {
+      const { productId } = req.body;
+      const cartProductIndex = user.carts.findIndex((cp) => {
+        return cp.productId.toString() === productId.toString();
+      });
+      if (cartProductIndex >= 0) {
+        user.carts[cartProductIndex].quantity =
+          user.carts[cartProductIndex].quantity - 1;
+        await user.save();
+      } 
+    } else {
+      const sess = await mongoose.startSession();
+      sess.startTransaction();
+      await item.remove();
+      await user.save({ session: sess });
+      await sess.commitTransaction();
+    }
+    
+  } catch (err) {
+    console.log("err", err);
+    const error = new HttpError(
+      "Removing item from cart failed , please try again.",
       500
     );
     return next(error);
@@ -166,3 +258,5 @@ const addCart = async (req, res, next) => {
 exports.signup = signup;
 exports.login = login;
 exports.addCart = addCart;
+exports.removeItemFromCart = removeItemFromCart;
+exports.decreaseItemIncart = decreaseItemIncart;

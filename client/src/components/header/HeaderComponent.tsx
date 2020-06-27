@@ -30,9 +30,6 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
                 <Menu.Item key="/shop">
                   <Link to="/shop">Shop</Link>
                 </Menu.Item>
-                <Menu.Item key="/products">
-                  <Link to="/products">Products</Link>
-                </Menu.Item>
                 <Menu.Item key="/orders">
                   <Link to="/orders">Orders</Link>
                 </Menu.Item>

@@ -34,4 +34,8 @@ router.post(
   usersController.addCart
 );
 
+router.delete("/remove", usersController.removeItemFromCart);
+
+router.delete("/decreaseItem", usersController.decreaseItemIncart);
+
 module.exports = router;

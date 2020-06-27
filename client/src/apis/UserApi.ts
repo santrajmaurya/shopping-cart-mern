@@ -40,6 +40,34 @@ class Api {
         const responseData = await response.json();
         return responseData;
     }
+
+    removeItemFromCart = async (productId: any, userId: any) => {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        const options = {
+            method: "DELETE",
+            headers,
+            body: JSON.stringify({productId, userId})
+        }
+        const request = new Request(`${baseUrl}/api/users/remove`, options);
+        const response = await fetch(request);
+        const responseData = await response.json();
+        return responseData;
+    }
+
+    decreaseItemInCart = async (productId: any, userId: any) => {
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        const options = {
+            method: "DELETE",
+            headers,
+            body: JSON.stringify({productId, userId})
+        }
+        const request = new Request(`${baseUrl}/api/users/decreaseItem`, options);
+        const response = await fetch(request);
+        const responseData = await response.json();
+        return responseData;
+    }
     }
 
     export default Api;

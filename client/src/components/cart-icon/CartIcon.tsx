@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Observer } from "mobx-react-lite";
+import { useHistory } from 'react-router-dom';
 
 import { RootStoreContext } from "../../App";
 import { ShoppingCartOutlined } from '@ant-design/icons';
@@ -9,15 +10,15 @@ import "./CartIcon.scss";
 
 const CartIcon: React.FC = () => {
   const { rootStore } = useContext(RootStoreContext);
-  const { cartStore } = rootStore;
-
+  const { userStore } = rootStore;
+  const history = useHistory();
   return (
     <Observer>
       {() => (
         <div >
-          <ShoppingCartOutlined onClick={cartStore.toggleCartIcon} className='cart-logo' />
+          <ShoppingCartOutlined onClick={() => history.push('/checkout')} className='cart-logo' />
          <span>
-            <Badge style={{ top: '-17px', right: '22px' }} showZero={true} count={cartStore.itemCount}>
+            <Badge style={{ top: '-17px', right: '22px' }} showZero={false} count={userStore.itemCount}>
         </Badge>
           </span>
         </div>

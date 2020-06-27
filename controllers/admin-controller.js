@@ -3,55 +3,6 @@ const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
 const Product = require("../models/product");
-const User = require("../models/user");
-
-// const getPlaceById = async (req, res, next) => {
-//   const placeId = req.params.pid;
-
-//   let place;
-
-//   try {
-//     place = await Place.findById(placeId);
-//   } catch (err) {
-//     const error = new HttpError(
-//       "Something went wrong, could not find a place.",
-//       500
-//     );
-//     return next(error);
-//   }
-
-//   if (!place) {
-//     const error = new HttpError("Could not find a place for provided id.", 404);
-//     return next(error);
-//   }
-//   res.json({ place: place.toObject({ getters: true }) });
-// };
-
-// const getPlacesByUserId = async (req, res, next) => {
-//   const userId = req.params.uid;
-
-//   let userWithPlaces;
-//   try {
-//     userWithPlaces = await User.findById(userId).populate('places');
-//   } catch (err) {
-//     const error = new HttpError(
-//       "Feching places failed, please try again later.",
-//       500
-//     );
-//     return next(error);
-//   }
-
-//   if (!userWithPlaces || userWithPlaces.places.length === 0) {
-//     return next(
-//       new HttpError("Could not find  places for provided user id.", 404)
-//     );
-//   }
-//   res.json({
-//     places: userWithPlaces.places.map((place) =>
-//       place.toObject({ getters: true })
-//     ),
-//   });
-// };
 
 const getAdminProduct = async (req, res, next) => {
   let products;
@@ -81,26 +32,8 @@ const addProduct = async (req, res, next) => {
     price,
   });
 
-  // let user;
-  // try {
-  //   user = await User.findById(userId);
-  // } catch(err) {
-  //   const error = new HttpError('Creating product failed, please try again later.', 500);
-  //   return next(error);
-  // }
-
-  // if(!user) {
-  //   const error = new HttpError('Could not find user for provided id.', 404);
-  //   return next(error);
-  // }
-
   try {
-    // const sess = await mongoose.startSession();
-    // sess.startTransaction();
     await createdProduct.save();
-    // user.cart.products.push(createdProduct);
-    // await user.save({session: sess});
-    // await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
       "Creating product failed, please try again.",
@@ -181,8 +114,6 @@ const deleteAdminProduct = async (req, res, next) => {
   res.status(200).json({ message: "Deleted product." });
 };
 
-// exports.getPlaceById = getPlaceById;
-// exports.getPlacesByUserId = getPlacesByUserId;
 exports.addProduct = addProduct;
 exports.getAdminProduct = getAdminProduct;
 exports.editProduct = editProduct;
