@@ -10,8 +10,8 @@ import AdminProducts from './components/admin-products/AdminProducts';
 import ContactUs from './components/ContactUs/ContactUs';
 import OrderList from './components/orders/OrderList';
 import CheckoutPage from './components/checkout/CheckoutPage';
-import SignIn from './components/sign-in/SignIn';
-import SignUp from './components/sign-up/SignUp';
+import SignIn from './components/auth/SignIn';
+import SignUp from './components/auth/SignUp';
 import { RootStore } from './store/RootStore';
 
 const rootStore = new RootStore();

@@ -7,7 +7,8 @@ import {
     Col,
     Checkbox,
     Button, 
-    notification
+    notification,
+    Typography,
 } from 'antd';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { Observer } from "mobx-react-lite";
@@ -46,6 +47,8 @@ const tailFormItemLayout = {
         },
     },
 };
+
+const { Title } = Typography;
 
 const SignUp = () => {
     const [form] = Form.useForm();
@@ -88,6 +91,12 @@ const SignUp = () => {
     return (
         <Observer>
             {() => (
+                <>
+                    <Row style={{ marginTop: '10px' }}>
+                        <Col span={8} offset={8}>
+                            <Title style={{ color: '#1da57a' }}>Create Account!</Title>
+                        </Col>
+                    </Row>
         <Form
             {...formItemLayout}
             form={form}
@@ -96,7 +105,7 @@ const SignUp = () => {
             initialValues={{
                 prefix: '+91',
             }}
-            style={{marginTop : '50px'}}
+            style={{marginTop : '15px'}}
             scrollToFirstError
         >
             <Form.Item
@@ -240,6 +249,7 @@ const SignUp = () => {
             </Button>
             </Form.Item>
         </Form>
+        </>
         )}
         </Observer>
     );

@@ -5,7 +5,10 @@ import {
   Input,
   Checkbox,
   Button,
-  notification
+  notification,
+  Typography,
+  Row,
+  Col
 } from 'antd';
 
 import { Observer } from "mobx-react-lite";
@@ -45,6 +48,8 @@ const tailFormItemLayout = {
   },
 };
 
+const { Title } = Typography;
+
 const SignIn = () => {
   const [form] = Form.useForm();
   const { rootStore, login } = useContext(RootStoreContext);
@@ -73,13 +78,19 @@ const SignIn = () => {
   return (
     <Observer>
       {() => (
+        <>
+        <Row style={{ marginTop: '10px' }}>
+          <Col span={8} offset={8}>
+            <Title style={{ color: '#1da57a' }}>Sign In!</Title>
+          </Col>
+        </Row>
     <Form
       {...formItemLayout}
       form={form}
       name="signin"
       onFinish={handleLogin}
       initialValues={{ remember: false }}
-      style={{ marginTop: '50px' }}
+      style={{ marginTop: '15px' }}
       scrollToFirstError
     >
       <Form.Item
@@ -126,6 +137,7 @@ const SignIn = () => {
       </Form.Item>
       <Link to="/signup" style={{ marginLeft: '456px', cursor: 'pointer' }}>Or Register now!</Link>
     </Form>
+    </>
       )}
     </Observer>
   );

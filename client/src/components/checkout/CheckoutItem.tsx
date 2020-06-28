@@ -72,7 +72,7 @@ const CheckoutItem: React.FC = observer(() => {
       {userCart &&
         userCart.map((cart: any) => (
           <Row
-            key={cart.id}
+            key={cart._id}
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             style={{ margin: "15px 70px 0", border: "1px solid #d8cfcf" }}
           >
