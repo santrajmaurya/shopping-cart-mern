@@ -8,8 +8,7 @@ import { RootStoreContext } from "../../App";
 const { Meta } = Card;
 
 const ShopPageItem: React.FC = observer(() => {
-    const { rootStore } = useContext(RootStoreContext);
-    const { productStore, userStore } = rootStore;
+    const { productStore, userStore } = useContext(RootStoreContext);
     const [loading, setLoading] = useState(false);
     const products = productStore.productsList;
     const status = productStore.status;

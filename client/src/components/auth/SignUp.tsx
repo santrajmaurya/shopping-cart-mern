@@ -52,8 +52,7 @@ const { Title } = Typography;
 
 const SignUp = () => {
     const [form] = Form.useForm();
-    const { rootStore } = useContext(RootStoreContext);
-    const { userStore } = rootStore;
+    const { userStore } = useContext(RootStoreContext);
     const history = useHistory();
 
     const handleSignUp = async (values: any) => {

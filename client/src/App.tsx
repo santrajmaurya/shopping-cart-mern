@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Observer } from 'mobx-react-lite';
 
@@ -16,37 +16,16 @@ import { RootStore } from './store/RootStore';
 
 const rootStore = new RootStore();
 
-export const RootStoreContext = React.createContext({
-  rootStore,
-  // isLoggedIn: false,
-  // userId: '',
-  // token: null,
-  // login: (id: string, token: any) => { },
-  // logout: () => { }
-});
+export const RootStoreContext = React.createContext(rootStore);
 
 
 const App: React.FC = () => {
-  // const [token, setToken] = useState<any>(null);
-  // const [userId, setUserId] = useState<any>('');
-  const { rootStore } = useContext(RootStoreContext);
-  const { userStore } = rootStore;
-
-  // const login = useCallback((uid, token) => {
-  //   setToken(token);
-  //   setUserId(uid);
-  // }, []);
-
-  // const logout = useCallback(() => {
-  //   setToken(null);
-  //   setUserId('');
-  // }, []);
-  
+  const { userStore } = useContext(RootStoreContext);
 
   return (
     <Observer>
       {() => (
-        <RootStoreContext.Provider value={{ rootStore: rootStore }}>
+        <RootStoreContext.Provider value={rootStore}>
           <HeaderComponent />
           <Switch>
             <Route exact path="/" component={ShopPage} />

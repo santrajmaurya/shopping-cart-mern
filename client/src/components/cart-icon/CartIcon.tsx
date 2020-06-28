@@ -9,8 +9,7 @@ import { Badge } from 'antd';
 import "./CartIcon.scss";
 
 const CartIcon: React.FC = () => {
-  const { rootStore } = useContext(RootStoreContext);
-  const { userStore } = rootStore;
+  const { userStore } = useContext(RootStoreContext);
   const history = useHistory();
   return (
     <Observer>

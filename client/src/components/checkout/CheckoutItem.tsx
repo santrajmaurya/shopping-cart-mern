@@ -12,8 +12,7 @@ import { RootStoreContext } from "../../App";
 const { Title } = Typography;
 
 const CheckoutItem: React.FC = observer(() => {
-  const { rootStore } = useContext(RootStoreContext);
-  const { userStore } = rootStore;
+  const { userStore } = useContext(RootStoreContext);
   const { userCart, totalCartCount, userId } = userStore;
 
     const decreaseItem = async (productId: any) => {

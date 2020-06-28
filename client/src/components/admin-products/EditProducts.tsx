@@ -55,8 +55,7 @@ interface RouteParams {
 const EditProducts: React.FC = () => {
     const [form] = Form.useForm();
     const history = useHistory();
-    const { rootStore } = useContext(RootStoreContext);
-    const { productStore } = rootStore;
+    const { productStore } = useContext(RootStoreContext);
     const productId = useParams<RouteParams>().productId;
     // const editedItem = products.filter((product: any) => product.id === productId);
 

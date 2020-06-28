@@ -18,8 +18,7 @@ const { Meta } = Card;
 type Event = any;
 
 const ProductItem: React.FC = observer(() => {
-  const { rootStore } = useContext(RootStoreContext);
-  const { productStore } = rootStore;
+  const { productStore } = useContext(RootStoreContext);
   const products = productStore.productsList;
   const [isModalOpen, setIsModal] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -52,13 +52,11 @@ const { Title } = Typography;
 
 const SignIn = () => {
   const [form] = Form.useForm();
-  const { rootStore } = useContext(RootStoreContext);
-  const { userStore } = rootStore;
+  const { userStore } = useContext(RootStoreContext);
   const history = useHistory();
 
   const handleLogin = async (values: any) => {
     await userStore.login(values);
-    // login(userStore.userId, userStore.token);
     if (userStore.signInStatus === 'success') {
       notification['success']({
         message: 'Signin Successfull',

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Observer } from "mobx-react-lite";
 import { Layout, Menu, Row, Col } from 'antd';
@@ -12,14 +12,8 @@ interface HeaderComponentProps {
 }
 
 const HeaderComponent: React.FC<HeaderComponentProps> = () => {
-  const { rootStore } = useContext(RootStoreContext);
-  const { userStore } = rootStore;
+  const { userStore } = useContext(RootStoreContext);
   const token = userStore;
-
-  // useEffect(() => {
-  //   console.log('useeffect callled');
-
-  // }, [token]);
 
   const handleSignOut = async () => {
     await userStore.signOut();
