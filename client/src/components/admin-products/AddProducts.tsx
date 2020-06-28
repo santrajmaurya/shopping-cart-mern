@@ -51,11 +51,11 @@ const tailFormItemLayout = {
 const AddProducts: React.FC = () => {
     const [form] = Form.useForm();
     const { rootStore } = useContext(RootStoreContext);
-    const { productStore } = rootStore;
+    const { productStore, userStore } = rootStore;
     const history = useHistory();
 
     const handleAddProducts = async (values: any) => {
-       await productStore.addProduct(values);
+        await productStore.addProduct(values, userStore.token);
         if (productStore.addProductStatus === 'success') {
             notification['success']({
                 message: 'Adding Product Successfull',

@@ -18,12 +18,15 @@ const getAdminProduct = async (req, res, next) => {
 
 const addProduct = async (req, res, next) => {
   const errors = validationResult(req);
+  console.log(errors);
+  console.log('body', req.body);
   if (!errors.isEmpty()) {
     return next(
-      new HttpError("Invalid inputs passed, please check your data.", 422)
+      new HttpError("Invalid inputs passed jj, please check your data.", 422)
     );
   }
   const { title, description, image, price } = req.body;
+
 
   const createdProduct = new Product({
     title,

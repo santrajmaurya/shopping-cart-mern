@@ -1,5 +1,4 @@
 const baseUrl = "http://localhost:5000/api/admin";
-
 class Api {
     
     // getAdminProducts = async (urlParams: any) => {
@@ -10,6 +9,7 @@ class Api {
     //  const response = await fetch(request);
     //  return response.json();
     // }
+    
 
     getAdminProducts = async () => {
         const options = {
@@ -21,12 +21,12 @@ class Api {
     }
 
 
-    addProduct = async (model: any) => {
+    addProduct = async (model: any, token: any) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         let options = {
             method: "POST",
-            headers,
+            headers: {Authorization: 'Bearer ' + token},
             body: JSON.stringify(model)
         }
         const request = new Request(`${baseUrl}/add-product`, options);
@@ -55,7 +55,6 @@ class Api {
             headers
         }
         const request = new Request(baseUrl + "/" + id, options);
-        // const request = new Request(`${baseUrl}/:id`, options);
         const response = await fetch(request);
         return response;
     }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Observer } from "mobx-react-lite";
 import { Layout, Menu, Row, Col } from 'antd';
@@ -14,6 +14,18 @@ interface HeaderComponentProps {
 const HeaderComponent: React.FC<HeaderComponentProps> = () => {
   const { rootStore } = useContext(RootStoreContext);
   const { userStore } = rootStore;
+  const token = userStore;
+
+  // useEffect(() => {
+  //   console.log('useeffect callled');
+
+  // }, [token]);
+
+  const handleSignOut = async () => {
+    await userStore.signOut();
+  }
+
+  console.log('he', token);
 
   return (
     <Observer>
@@ -42,9 +54,9 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
                 <Menu.Item key="/contact">
                   <Link to="/contact">Contact</Link>
                 </Menu.Item>
-                {userStore.isLogin ? (
+                {userStore.token ? (
                   <Menu.Item key="/signout">
-                    <Link to="/" onClick={() => userStore.signOut()}>Sign Out</Link>
+                    <Link to="/" onClick={handleSignOut}>Sign Out</Link>
                   </Menu.Item>
                 ) : (
                     <Menu.Item key="/signin">

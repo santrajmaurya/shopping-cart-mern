@@ -12,12 +12,12 @@ import { RootStoreContext } from "../../App";
 const { Title } = Typography;
 
 const CheckoutItem: React.FC = observer(() => {
-  const { rootStore, userId } = useContext(RootStoreContext);
+  const { rootStore } = useContext(RootStoreContext);
   const { userStore } = rootStore;
-    const { userCart, totalCartCount } = userStore;
+  const { userCart, totalCartCount, userId } = userStore;
 
     const decreaseItem = async (productId: any) => {
-      await userStore.decreaseItem(productId, userId);
+      await userStore.decreaseItem(productId, userStore.userId);
     }
 
     const increaseItem = async (cart: any) => {
@@ -125,7 +125,7 @@ const CheckoutItem: React.FC = observer(() => {
             </Col>
             <Col span={3}>
               <Title level={4} style={{ lineHeight: "2.35" }}>
-                <DeleteOutlined id={cart.id} style={{ cursor: "pointer" }} onClick={() => removeItem(cart.productId, userId)} />
+                <DeleteOutlined id={cart.id} style={{ cursor: "pointer" }} onClick={() => removeItem(cart.productId, userStore.userId)} />
               </Title>
             </Col>
           </Row>

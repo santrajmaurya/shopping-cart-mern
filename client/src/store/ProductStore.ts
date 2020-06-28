@@ -18,9 +18,9 @@ export class ProductStore {
     
 
     @action
-    addProduct = async (model:any) => {
+    addProduct = async (model:any, token: any) => {
         try {
-            const response = await this.rootStore.productApi.addProduct(model);
+            const response = await this.rootStore.productApi.addProduct(model, token);
             if (response.ok) {
                 runInAction(() => {
                     this.addProductStatus = "success";

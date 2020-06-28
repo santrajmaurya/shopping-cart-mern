@@ -2,12 +2,13 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const adminController = require("../controllers/admin-controller");
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
 router.get("/", adminController.getAdminProduct);
 
-// router.get("/user/:uid", placesController.getPlacesByUserId);
+// router.use(checkAuth);
 
 router.post(
   "/add-product",

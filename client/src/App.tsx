@@ -18,34 +18,35 @@ const rootStore = new RootStore();
 
 export const RootStoreContext = React.createContext({
   rootStore,
-  isLoggedIn: false,
-  userId: null,
-  login: (id: string) => { },
-  logout: () => { }
+  // isLoggedIn: false,
+  // userId: '',
+  // token: null,
+  // login: (id: string, token: any) => { },
+  // logout: () => { }
 });
 
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [userId, setUserId] = useState(null);
+  // const [token, setToken] = useState<any>(null);
+  // const [userId, setUserId] = useState<any>('');
   const { rootStore } = useContext(RootStoreContext);
   const { userStore } = rootStore;
 
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true);
-    setUserId(uid);
-  }, []);
+  // const login = useCallback((uid, token) => {
+  //   setToken(token);
+  //   setUserId(uid);
+  // }, []);
 
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-    setUserId(null);
-  }, []);
+  // const logout = useCallback(() => {
+  //   setToken(null);
+  //   setUserId('');
+  // }, []);
   
 
   return (
     <Observer>
       {() => (
-        <RootStoreContext.Provider value={{ rootStore: rootStore, isLoggedIn: isLoggedIn, login: login, logout: logout, userId: userId  }}>
+        <RootStoreContext.Provider value={{ rootStore: rootStore }}>
           <HeaderComponent />
           <Switch>
             <Route exact path="/" component={ShopPage} />
@@ -57,7 +58,7 @@ const App: React.FC = () => {
             <Route exact path="/orders" component={OrderList} />
             <Route exact path="/checkout" component={CheckoutPage} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/signin" render={() => userStore.isLogin ? (<Redirect to='/' />) : (<SignIn />) } />
+            <Route exact path="/signin" render={() => userStore.token ? (<Redirect to='/' />) : (<SignIn />) } />
           </Switch>
         </RootStoreContext.Provider>
       )}

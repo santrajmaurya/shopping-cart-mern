@@ -13,13 +13,13 @@ export class UserStore {
         this.rootStore = rootStore;
     }
 
-    @observable user: any = [];
+    @observable.ref user: any = [];
     @observable signInStatus: string = "initial";
     @observable signUpStatus: string = "initial";
     @observable addCartStatus: string = 'Initial'
     @observable status: string = 'Initial'
-    @observable isLogin: boolean = false;
-    @observable userId: string = '';
+    @observable userId: any = '';
+    @observable token: any = null;
     @observable.ref userCart: any = [];
     
 
@@ -45,13 +45,13 @@ export class UserStore {
     login = async (model:any) => {
         try {
             const response = await this.rootStore.userApi.login(model);
-            if (response.user) {
+            if (response) {
                 runInAction(() => {
                     this.signInStatus = "success";
                     this.user = response.user;
                     this.userCart = response.user.carts;
                     this.userId = response.user.id;
-                    this.isLogin = true;
+                    this.token = response.token;
                 })
             } else {
                 this.signInStatus = "error";
@@ -64,8 +64,11 @@ export class UserStore {
     };
 
     @action
-    signOut = async () => {
-        this.isLogin = false;
+    signOut = () => {
+        this.userId = '';
+        this.token = null;
+        this.user = [];
+        this.userCart = [];
     }
 
     @action
@@ -141,10 +144,4 @@ export class UserStore {
             accumalatedQuantity + cartItem.quantity * cartItem.price, 0
         );
     }
-
-    // @computed
-    // get userCart(): any {
-    //     return this.userCart;
-    //     );
-    // }
 }
