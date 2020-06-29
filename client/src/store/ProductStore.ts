@@ -75,15 +75,15 @@ export class ProductStore {
 
     @action
     editAdminProducts = async (model: any, productId: string, token: any) => {
-        debugger
         try {
             const response = await this.rootStore.productApi.editProduct(model, productId, token);
-            if (response.status === 200) {
+            if (response.product) {
                 runInAction(() => {
                     this.editStatus = "success";
                 })
-            } 
-           ;
+            } else {
+                this.editStatus = "error";
+            }
         } catch (error) {
             runInAction(() => {
                 this.editStatus = "error";

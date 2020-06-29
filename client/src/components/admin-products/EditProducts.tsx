@@ -73,8 +73,7 @@ const EditProducts: React.FC = () => {
         } else {
             notification['error']({
                 message: 'Edit Product Failed',
-                description:
-                    'Edit Product Failed. Please try again.',
+                description: 'Edit Product Failed. Please try again.',
             });
         }
     };

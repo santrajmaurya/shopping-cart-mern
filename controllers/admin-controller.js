@@ -23,11 +23,16 @@ const addProduct = async (req, res, next) => {
   
   if (!errors.isEmpty()) {
     return next(
-      new HttpError("Invalid inputs passed jj, please check your data.", 422)
+      new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
+  
+  if (req.userData.userId !== "5ef9ea4ef74b7e2290a584d9") {
+    const error = new Error('You are not authorize to create the product', 401);
+    return next(error);
+  }
+    
   const { title, description, image, price } = req.body;
-
 
   const createdProduct = new Product({
     title,
@@ -41,7 +46,7 @@ const addProduct = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     const error = new HttpError(
-      "Creating product failed  ll, please try again.",
+      "Creating product failed, please try again.",
       500
     );
     return next(error);
@@ -69,6 +74,11 @@ const editProduct = async (req, res, next) => {
     );
     return next(error);
   }
+  if (req.userData.userId !== "5ef9ea4ef74b7e2290a584d9") {
+    const error = new Error('You are not authorize to edit the product', 401);
+    return next(error);
+  }
+
   product.title = title;
   product.description = description;
   product.image = image;
@@ -104,6 +114,11 @@ const deleteAdminProduct = async (req, res, next) => {
 
   if (!products) {
     const error = new HttpError("Could not find product for this id.", 404);
+    return next(error);
+  }
+
+  if (req.userData.userId !== "5ef9ea4ef74b7e2290a584d9") {
+    const error = new Error("You are not authorize to delete the product", 401);
     return next(error);
   }
 

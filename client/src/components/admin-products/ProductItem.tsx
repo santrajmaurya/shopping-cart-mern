@@ -36,7 +36,7 @@ const ProductItem: React.FC = observer(() => {
     if (status === "success") {
       setLoading(false);
     }
-  }, [status, deleteProductStatus]);
+  }, [status, deleteProductStatus, productStore]);
 
 
   const deleteProduct = (e: Event) => {

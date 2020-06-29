@@ -40,7 +40,8 @@ class Api {
         }
         const request = new Request(baseUrl + "/edit-product/" + productId, options);
         const response = await fetch(request);
-        return response;
+        const responseData = await response.json()
+        return responseData;
     }
 
     deleteProduct = async (id: any, token: any) => {
