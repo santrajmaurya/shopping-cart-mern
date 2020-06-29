@@ -1,5 +1,7 @@
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
+// const bcrypt = require("bcryptjs");
+// const jwt = require("jsonwebtoken");
 
 const HttpError = require("../models/http-error");
 const Product = require("../models/product");
@@ -18,8 +20,7 @@ const getAdminProduct = async (req, res, next) => {
 
 const addProduct = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log(errors);
-  console.log('body', req.body);
+  
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed jj, please check your data.", 422)
@@ -38,12 +39,14 @@ const addProduct = async (req, res, next) => {
   try {
     await createdProduct.save();
   } catch (err) {
+    console.log(err);
     const error = new HttpError(
-      "Creating product failed, please try again.",
+      "Creating product failed  ll, please try again.",
       500
     );
     return next(error);
   }
+
   res.status(201).json({ product: createdProduct });
 };
 

@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/", adminController.getAdminProduct);
 
-// router.use(checkAuth);
+router.use(checkAuth);
 
 router.post(
   "/add-product",

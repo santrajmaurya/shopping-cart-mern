@@ -18,13 +18,14 @@ const { Meta } = Card;
 type Event = any;
 
 const ProductItem: React.FC = observer(() => {
-  const { productStore } = useContext(RootStoreContext);
+  const { productStore, userStore } = useContext(RootStoreContext);
   const products = productStore.productsList;
   const [isModalOpen, setIsModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [deleteId, setDeleteId] = useState("");
   const history = useHistory();
-  const status = productStore.status;
+  const { status, deleteProductStatus } = productStore;
+  const { token } = userStore;
 
   useEffect(() => {
     setLoading(true);
@@ -35,7 +36,7 @@ const ProductItem: React.FC = observer(() => {
     if (status === "success") {
       setLoading(false);
     }
-  }, [status, productStore]);
+  }, [status, deleteProductStatus]);
 
 
   const deleteProduct = (e: Event) => {
@@ -56,7 +57,7 @@ const ProductItem: React.FC = observer(() => {
   const handleOk = async () => {
     setIsModal(false);
 
-    await productStore.deleteAdminProducts(deleteId);
+    await productStore.deleteAdminProducts(deleteId, token);
 
     if (productStore.deleteProductStatus === "success") {
       notification["success"]({

@@ -22,11 +22,9 @@ class Api {
 
 
     addProduct = async (model: any, token: any) => {
-        const headers = new Headers();
-        headers.append("Content-Type", "application/json");
         let options = {
             method: "POST",
-            headers: {Authorization: 'Bearer ' + token},
+            headers: {Authorization: 'Bearer ' + token, "Content-Type": "application/json"},
             body: JSON.stringify(model)
         }
         const request = new Request(`${baseUrl}/add-product`, options);
@@ -34,12 +32,10 @@ class Api {
         return response;
     }
    
-    editProduct = async (model: any, productId: any) => {
-        const headers = new Headers()
-        headers.append("Content-Type", "application/json");
-        var options = {
+    editProduct = async (model: any, productId: any, token: any) => {
+        let options = {
             method: "PATCH",
-            headers,
+            headers: {Authorization: 'Bearer ' + token, "Content-Type": "application/json"},
             body: JSON.stringify(model)
         }
         const request = new Request(baseUrl + "/edit-product/" + productId, options);
@@ -47,12 +43,10 @@ class Api {
         return response;
     }
 
-    deleteProduct = async (id: any) => {
-        const headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        const options = {
+    deleteProduct = async (id: any, token: any) => {
+        let options = {
             method: "DELETE",
-            headers
+            headers: {Authorization: 'Bearer ' + token, "Content-Type": "application/json"},
         }
         const request = new Request(baseUrl + "/" + id, options);
         const response = await fetch(request);

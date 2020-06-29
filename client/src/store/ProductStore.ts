@@ -55,10 +55,10 @@ export class ProductStore {
     };
 
     @action
-    deleteAdminProducts = async (id: any) => {
+    deleteAdminProducts = async (id: any, token: any) => {
         debugger
         try {
-            const response = await this.rootStore.productApi.deleteProduct(id);
+            const response = await this.rootStore.productApi.deleteProduct(id, token);
             if (response.ok) {
                 runInAction(() => {
                     return this.deleteProductStatus = "success";
@@ -74,10 +74,10 @@ export class ProductStore {
     };
 
     @action
-    editAdminProducts = async (model: any, productId: string) => {
+    editAdminProducts = async (model: any, productId: string, token: any) => {
         debugger
         try {
-            const response = await this.rootStore.productApi.editProduct(model, productId);
+            const response = await this.rootStore.productApi.editProduct(model, productId, token);
             if (response.status === 200) {
                 runInAction(() => {
                     this.editStatus = "success";

@@ -14,6 +14,7 @@ import { Observer } from "mobx-react-lite";
 
 import { RootStoreContext } from "../../App";
 
+
 const { Title } = Typography;
 
 const formItemLayout = {
@@ -55,12 +56,13 @@ interface RouteParams {
 const EditProducts: React.FC = () => {
     const [form] = Form.useForm();
     const history = useHistory();
-    const { productStore } = useContext(RootStoreContext);
+    const { productStore, userStore } = useContext(RootStoreContext);
     const productId = useParams<RouteParams>().productId;
+    const { token } = userStore;
     // const editedItem = products.filter((product: any) => product.id === productId);
 
     const handleEditProducts = async (values: any) => {
-        await productStore.editAdminProducts(values, productId);
+        await productStore.editAdminProducts(values, productId, token);
         if (productStore.editStatus === 'success') {
             notification['success']({
                 message: 'Edit Product Successfull',
