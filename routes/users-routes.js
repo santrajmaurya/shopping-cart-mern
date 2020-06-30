@@ -7,6 +7,7 @@ const usersController = require("../controllers/users-controller");
 const router = express.Router();
 
 // router.use(checkAuth);
+router.get("/:userId", usersController.getUserDetails);
 
 router.post(
   "/signup",

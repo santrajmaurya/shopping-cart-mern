@@ -1,7 +1,5 @@
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
-// const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
 
 const HttpError = require("../models/http-error");
 const Product = require("../models/product");
@@ -98,7 +96,6 @@ const editProduct = async (req, res, next) => {
 };
 
 const deleteAdminProduct = async (req, res, next) => {
-  console.log('req', req.params);
   const productId = req.params.productId;
 
   let products;

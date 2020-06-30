@@ -1,6 +1,15 @@
 const baseUrl = "http://localhost:5000";
 
 class Api {
+    getUser = async (userId: any) => {
+        const options = {
+            method: "GET",
+        }
+     const request = new Request(baseUrl + "/api/users/" + userId, options);
+     const response = await fetch(request);
+     return response.json();
+    }
+
     signUp = async (model: any) => {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");

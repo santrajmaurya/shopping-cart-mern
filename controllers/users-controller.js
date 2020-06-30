@@ -6,6 +6,19 @@ const jwt = require("jsonwebtoken");
 const HttpError = require("../models/http-error");
 const User = require("../models/user");
 
+const getUserDetails = async (req, res, next) => {
+  const userId = req.params.userId;
+    let user;
+    try {
+    user = await User.findOne({_id : userId});
+    } catch(err) {
+        const error = new HttpError('Feching user failed, please try again.', 500);
+        return next(error);
+    }
+
+    res.status(200).json({ user: user });
+};
+
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -312,6 +325,8 @@ const decreaseItemIncart = async (req, res, next) => {
   res.status(201).json({ user: user });
 };
 
+
+exports.getUserDetails = getUserDetails;
 exports.signup = signup;
 exports.login = login;
 exports.addCart = addCart;

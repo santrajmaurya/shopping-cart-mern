@@ -14,7 +14,6 @@ import { Observer } from "mobx-react-lite";
 
 import { RootStoreContext } from "../../App";
 
-// const { Option } = Select;
 const { Title } = Typography;
 
 const formItemLayout = {

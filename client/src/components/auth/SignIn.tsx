@@ -57,7 +57,12 @@ const SignIn = () => {
 
   const handleLogin = async (values: any) => {
     await userStore.login(values);
-    if (userStore.signInStatus === 'success') {
+    if (userStore.userId) {
+      await userStore.getUserDetails(userStore.userId);
+    }
+    // const tokenExpirationDate =  new Date(new Date().getTime() + 3000 * 60 * 60);
+    localStorage.setItem('userData', JSON.stringify({ userId: userStore.userId, token: userStore.token}));
+    if (userStore.status === 'success') {
       notification['success']({
         message: 'Signin Successfull',
         description:

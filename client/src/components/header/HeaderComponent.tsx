@@ -1,7 +1,8 @@
+// @ts-nocheck
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { Observer } from "mobx-react-lite";
 import { Layout, Menu, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from "../../assests/crown.svg";
 import { RootStoreContext } from "../../App";
@@ -9,17 +10,16 @@ import CartIcon from '../cart-icon/CartIcon';
 
 const { Header } = Layout;
 interface HeaderComponentProps {
+  userId: any
 }
 
-const HeaderComponent: React.FC<HeaderComponentProps> = () => {
+const HeaderComponent: React.FC<HeaderComponentProps> = ({ userId }) => {
   const { userStore } = useContext(RootStoreContext);
-  const token = userStore;
-
-  const handleSignOut = async () => {
-    await userStore.signOut();
+ 
+  const handleSignOut = () => {
+    localStorage.removeItem('userData');
+     userStore.signOut();
   }
-
-  console.log('he', token);
 
   return (
     <Observer>
@@ -48,7 +48,7 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
                 <Menu.Item key="/contact">
                   <Link to="/contact">Contact</Link>
                 </Menu.Item>
-                {userStore.token ? (
+                {(userId || userStore.token) ? (
                   <Menu.Item key="/signout">
                     <Link to="/" onClick={handleSignOut}>Sign Out</Link>
                   </Menu.Item>

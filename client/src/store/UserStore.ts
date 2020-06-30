@@ -19,7 +19,7 @@ export class UserStore {
     @observable addCartStatus: string = 'Initial'
     @observable status: string = 'Initial'
     @observable userId: any = '';
-    @observable token: any = null;
+    @observable token: any = '';
     @observable.ref userCart: any = [];
     
 
@@ -48,8 +48,6 @@ export class UserStore {
             if (response) {
                 runInAction(() => {
                     this.signInStatus = "success";
-                    this.user = response.user;
-                    this.userCart = response.user.carts;
                     this.userId = response.user.id;
                     this.token = response.token;
                 })
@@ -64,9 +62,29 @@ export class UserStore {
     };
 
     @action
+    getUserDetails = async (userId: any) => {
+        try {
+            const response = await this.rootStore.userApi.getUser(userId);
+            if (response) {
+                runInAction(() => {
+                    this.status = "success";
+                    this.user = response.user;
+                    this.userCart = response.user.carts;
+                })
+            } else {
+                this.status = "error";
+            }
+        } catch (error) {
+            runInAction(() => {
+                this.status = "error";
+            });
+        }
+    };
+
+    @action
     signOut = () => {
         this.userId = '';
-        this.token = null;
+        this.token = '';
         this.user = [];
         this.userCart = [];
     }

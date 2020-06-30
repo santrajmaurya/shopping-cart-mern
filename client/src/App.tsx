@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+// @ts-nocheck
+import React, { useState, useContext, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Observer } from 'mobx-react-lite';
 
@@ -21,12 +22,22 @@ export const RootStoreContext = React.createContext(rootStore);
 
 const App: React.FC = () => {
   const { userStore } = useContext(RootStoreContext);
+  const [userId, setUserId] = useState('');
 
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    if(storedData && storedData.token) {
+     const { userId } = storedData;
+     setUserId(userId);
+     userStore.getUserDetails(userId);
+   }
+  }, [userStore]);
+   
   return (
     <Observer>
       {() => (
         <RootStoreContext.Provider value={rootStore}>
-          <HeaderComponent />
+          <HeaderComponent userId={userId} />
           <Switch>
             <Route exact path="/" component={ShopPage} />
             <Route path="/shop" component={ShopPage} />
@@ -37,7 +48,7 @@ const App: React.FC = () => {
             <Route exact path="/orders" component={OrderList} />
             <Route exact path="/checkout" component={CheckoutPage} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/signin" render={() => userStore.token ? (<Redirect to='/' />) : (<SignIn />) } />
+            <Route exact path="/signin" render={() => userStore.userId ? (<Redirect to='/' />) : (<SignIn />) } />
           </Switch>
         </RootStoreContext.Provider>
       )}

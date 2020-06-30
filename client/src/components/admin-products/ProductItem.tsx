@@ -50,6 +50,7 @@ const ProductItem: React.FC = observer(() => {
     setDeleteId(selectedProductId);
     history.push(`/edit-product/${selectedProductId}`);
   };
+  
   const showModal = () => {
     setIsModal(true);
   };

@@ -1,16 +1,6 @@
 const baseUrl = "http://localhost:5000/api/admin";
 class Api {
     
-    // getAdminProducts = async (urlParams: any) => {
-    //     const options = {
-    //         method: "GET",
-    //     }
-    //  const request = new Request(webApiUrl + "?" + urlParams, options);
-    //  const response = await fetch(request);
-    //  return response.json();
-    // }
-    
-
     getAdminProducts = async () => {
         const options = {
             method: "GET",
@@ -19,7 +9,6 @@ class Api {
      const response = await fetch(request);
      return response.json();
     }
-
 
     addProduct = async (model: any, token: any) => {
         let options = {
