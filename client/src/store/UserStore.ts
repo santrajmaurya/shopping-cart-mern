@@ -16,8 +16,9 @@ export class UserStore {
     @observable.ref user: any = [];
     @observable signInStatus: string = "initial";
     @observable signUpStatus: string = "initial";
-    @observable addCartStatus: string = 'Initial'
-    @observable status: string = 'Initial'
+    @observable addCartStatus: string = 'Initial';
+    @observable status: string = 'Initial';
+    @observable checkIfSignIn: boolean = false;
     @observable userId: any = '';
     @observable token: any = '';
     @observable.ref userCart: any = [];
@@ -70,6 +71,7 @@ export class UserStore {
                     this.status = "success";
                     this.user = response.user;
                     this.userCart = response.user.carts;
+                    this.checkIfSignIn = true;
                 })
             } else {
                 this.status = "error";
@@ -83,10 +85,7 @@ export class UserStore {
 
     @action
     signOut = () => {
-        this.userId = '';
-        this.token = '';
-        this.user = [];
-        this.userCart = [];
+        this.checkIfSignIn = false;
     }
 
     @action
