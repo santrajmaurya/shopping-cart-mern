@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Button, Col, Card, Spin, notification } from "antd";
+import { Button, Col, Card, Spin, message } from "antd";
 import { observer } from "mobx-react-lite";
 
 import { RootStoreContext } from "../../App";
@@ -38,17 +38,9 @@ const ShopPageItem: React.FC = observer(() => {
         }
         await userStore.addToCart(addedProduct);
         if (userStore.addCartStatus === 'success') {
-            notification['success']({
-                message: 'Adding cart Successfull',
-                description:
-                    'Adding cart Successfull. Please continue.',
-            });
+            message.success(`Adding cart Successfull`);
         } else {
-            notification['error']({
-                message: 'Adding cart Failed',
-                description:
-                    'Adding cart Failed. Please try again.',
-            });
+            message.error(`Adding cart Failed. Please try again.`);
         }
     }
 

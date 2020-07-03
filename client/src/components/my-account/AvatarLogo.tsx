@@ -20,9 +20,6 @@ const AvatarLogo: React.FC = observer(() => {
             <Menu.Item>
                 <Link to="/my-account">My Account</Link>
             </Menu.Item>
-            <Menu.Item key="/orders">
-                <Link to="/orders">My Orders</Link>
-            </Menu.Item>
             {userStore.checkIfSignIn ? (
                   <Menu.Item key="/signout">
                     <Link to="/" onClick={handleSignOut}>Sign Out</Link>
@@ -35,16 +32,12 @@ const AvatarLogo: React.FC = observer(() => {
         </Menu>
     );
 
-    console.log('ava checkIfSignIn', userStore.checkIfSignIn);
-
     return (
-        
         <>
             <Dropdown overlay={menu} placement="bottomCenter">
                 <Avatar style={{ backgroundColor: '#1da57a', marginTop: '-7px' }} size="large" src="https://pbs.twimg.com/profile_images/639378592661553153/qwaUwMy9_400x400.jpg" />
             </Dropdown>
         </>
-        
     )
 });
 

@@ -3,7 +3,7 @@ import {
     Form,
     Input,
     Button,
-    notification,
+    message,
     Typography,
     Row,
     Col,
@@ -64,17 +64,10 @@ const EditProducts: React.FC = () => {
     const handleEditProducts = async (values: any) => {
         await productStore.editAdminProducts(values, productId, token);
         if (productStore.editStatus === 'success') {
-            notification['success']({
-                message: 'Edit Product Successfull',
-                description:
-                    'Edit Product Successfull.',
-            });
+            message.success(`Edit Product Successfull`);
             history.push('/admin-products');
         } else {
-            notification['error']({
-                message: 'Edit Product Failed',
-                description: 'Edit Product Failed. Please try again.',
-            });
+            message.error(`'Edit Product Failed. Please try again.`);
         }
     };
 

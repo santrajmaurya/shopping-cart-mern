@@ -3,11 +3,11 @@ import {
     Form,
     Input,
     Button,
-    notification,
     Typography,
     Divider, 
     Row,
-    Col
+    Col,
+    message
 } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { Observer } from "mobx-react-lite";
@@ -55,18 +55,10 @@ const AddProducts: React.FC = () => {
     const handleAddProducts = async (values: any) => {
         await productStore.addProduct(values, userStore.token);
         if (productStore.addProductStatus === 'success') {
-            notification['success']({
-                message: 'Adding Product Successfull',
-                description:
-                    'Adding Product Successfull.',
-            });
+            message.success(`Adding Product Successfull`);
             history.push('/admin-products');
         } else {
-            notification['error']({
-                message: 'Adding Product Failed',
-                description:
-                    'Adding Product Failed. Please try again.',
-            });
+            message.error(`Adding Product Failed. Please try again.`);
         }
     };
 

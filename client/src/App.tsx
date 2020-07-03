@@ -14,12 +14,12 @@ import CheckoutPage from './components/checkout/CheckoutPage';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import MyAccount from './components/my-account/MyAccount';
+// import FooterComponent from './components/footer/FooterComponent';
 import { RootStore } from './store/RootStore';
 
 const rootStore = new RootStore();
 
 export const RootStoreContext = React.createContext(rootStore);
-
 
 const App: React.FC = () => {
   const { userStore } = useContext(RootStoreContext);
@@ -36,20 +36,23 @@ const App: React.FC = () => {
     <Observer>
       {() => (
         <RootStoreContext.Provider value={rootStore}>
-          <HeaderComponent />
-          <Switch>
-            <Route exact path="/" component={ShopPage} />
-            <Route path="/shop" component={ShopPage} />
-            <Route path="/admin-products" component={AdminProducts} />
-            <Route path="/add-products" component={AddProducts} />
-            <Route path="/edit-product/:productId" component={EditProducts} />
-            <Route exact path="/contact" component={ContactUs} />
-            <Route exact path="/my-account" component={MyAccount} />
-             <Route exact path="/orders" component={OrderList} />
-            <Route exact path="/checkout" component={CheckoutPage} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/signin" component={SignIn} />
-          </Switch>
+            <HeaderComponent />
+            {/* <div style={{ height: "calc(100vh - 136px)" }}> */}
+              <Switch>
+                <Route exact path="/" component={ShopPage} />
+                <Route path="/shop" component={ShopPage} />
+                <Route path="/admin-products" component={AdminProducts} />
+                <Route path="/add-products" component={AddProducts} />
+                <Route path="/edit-product/:productId" component={EditProducts} />
+                <Route exact path="/contact" component={ContactUs} />
+                <Route exact path="/my-account" component={MyAccount} />
+                <Route exact path="/orders" component={OrderList} />
+                <Route exact path="/checkout" component={CheckoutPage} />
+                <Route exact path="/signup" component={SignUp} />
+                <Route exact path="/signin" component={SignIn} />
+              </Switch>
+            {/* </div> */}
+            {/* <FooterComponent /> */}
         </RootStoreContext.Provider>
       )}
       </Observer>

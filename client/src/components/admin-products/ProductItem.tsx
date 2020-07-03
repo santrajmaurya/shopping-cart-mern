@@ -4,7 +4,7 @@ import {
   Col,
   Card,
   Skeleton,
-  notification,
+  message,
   Modal,
   Spin,
 } from "antd";
@@ -61,15 +61,9 @@ const ProductItem: React.FC = observer(() => {
     await productStore.deleteAdminProducts(deleteId, token);
 
     if (productStore.deleteProductStatus === "success") {
-      notification["success"]({
-        message: "Deleting product Successfull",
-        description: "Product successfully deleted.",
-      });
+      message.success(`Deleting Product Successfull`);
     } else {
-      notification["error"]({
-        message: "Deleting product Failed",
-        description: "Deleting product Failed. Please try again.",
-      });
+      message.error(`Deleting product Failed. Please try again.`);
     }
   };
 

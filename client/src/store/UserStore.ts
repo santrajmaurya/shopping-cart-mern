@@ -86,6 +86,7 @@ export class UserStore {
     @action
     signOut = () => {
         this.checkIfSignIn = false;
+        this.userCart = [];
     }
 
     @action

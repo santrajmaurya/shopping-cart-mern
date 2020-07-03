@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Row, Col, Card, Typography, Empty, notification } from "antd";
+import { Row, Col, Card, Typography, Empty, message } from "antd";
 import { observer } from "mobx-react-lite";
 import {
   PlusCircleOutlined,
@@ -30,15 +30,9 @@ const CheckoutItem: React.FC = observer(() => {
     const removeItem = async (productId: any, userId: any) => {
         await userStore.removeItem(productId, userId );
         if (userStore.status === "success") {
-            notification["success"]({
-                message: "Removing item Successfull",
-                description: "Item successfully removed from cart.",
-            });
+          message.success(`Removing item Successfull`);
         } else {
-            notification["error"]({
-                message: "Removing item Failed",
-                description: "Removing item failed. Please try again.",
-            });
+          message.error(`Removing item failed. Please try again.`);
         }
     }
 

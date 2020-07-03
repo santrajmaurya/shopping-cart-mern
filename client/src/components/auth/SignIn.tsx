@@ -5,7 +5,7 @@ import {
   Input,
   Checkbox,
   Button,
-  notification,
+  message,
   Typography,
   Row,
   Col
@@ -63,18 +63,10 @@ const SignIn = () => {
     // const tokenExpirationDate =  new Date(new Date().getTime() + 3000 * 60 * 60);
     localStorage.setItem('userData', JSON.stringify({ userId: userStore.userId, token: userStore.token}));
     if (userStore.status === 'success') {
-      notification['success']({
-        message: 'Signin Successfull',
-        description:
-          'Signin Successfull. Please continue.',
-      });
+      message.success(`Signin Successfull`);
       history.push('/');
     } else {
-      notification['error']({
-        message: 'Signin Failed',
-        description:
-          'Signin Failed. Please try again.',
-      });
+      message.error(`Signin Failed. Please try again.`);
     }
   };
 
