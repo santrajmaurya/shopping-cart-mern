@@ -7,6 +7,8 @@ import {
   message,
   Modal,
   Spin,
+  Row,
+  Tag
 } from "antd";
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router-dom";
@@ -86,7 +88,8 @@ const ProductItem: React.FC = observer(() => {
               <Card
                 bordered={true}
                 hoverable
-                style={{ width: "100%", marginTop: 16 }}
+                style={{ width: "100%", marginTop: '16px', borderRadius: '10px' }}
+                bodyStyle={{ padding: "7px" }}
                 cover={
                   <img
                     alt="example"
@@ -95,6 +98,14 @@ const ProductItem: React.FC = observer(() => {
                   />
                 }
               >
+                <Row style={{ display: 'flex' }}>
+                  <Col sm={6} style={{ marginBottom: "5px" }}>
+                    <Tag>Women</Tag>
+                  </Col>
+                  <Col sm={4} offset={12} style={{ marginBottom: "5px" }}>
+                    <Meta title={product.price} />
+                  </Col>
+                </Row>
                 <Meta title={product.title} description={product.description} />
                 <p
                   style={{ fontWeight: "bold", marginTop: "10px" }}

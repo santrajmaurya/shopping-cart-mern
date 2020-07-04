@@ -14,6 +14,7 @@ import CheckoutPage from './components/checkout/CheckoutPage';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import MyAccount from './components/my-account/MyAccount';
+import Admin from './components/admin-products/Admin';
 // import FooterComponent from './components/footer/FooterComponent';
 import { RootStore } from './store/RootStore';
 
@@ -41,6 +42,7 @@ const App: React.FC = () => {
               <Switch>
                 <Route exact path="/" component={ShopPage} />
                 <Route path="/shop" component={ShopPage} />
+                <Route path="/admin" component={Admin} />
                 <Route path="/admin-products" component={AdminProducts} />
                 <Route path="/add-products" component={AddProducts} />
                 <Route path="/edit-product/:productId" component={EditProducts} />

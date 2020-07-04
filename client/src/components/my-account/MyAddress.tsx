@@ -176,7 +176,7 @@ const MyAddress = () => {
                           <DeleteOutlined style={{ fontSize: '20px', marginRight: '25px', cursor: 'pointer' }} />
                           <EditOutlined style={{ fontSize: '20px', cursor: 'pointer' }} />
                       </Col>
-                  </Row>
+          </Row>
           <Meta
             title="Santraj Kumar - 9901429441"
             description="E 101, Blue Berry Society, Kale Padal, Blue Berry, Papde Vasti, Pune, Maharashtra - 412308"

@@ -26,11 +26,8 @@ const HeaderComponent: React.FC<HeaderComponentProps> = () => {
             </Col>
             <Col className="gutter-row" span={22}>
               <Menu theme="dark" mode="horizontal" style={{ float: 'right', fontSize: '16px' }}>
-                <Menu.Item key="/add-products">
-                  <Link to="/add-products">Add Products</Link>
-                </Menu.Item>
-                <Menu.Item key="/admin-products">
-                  <Link to="/admin-products">Admin Products</Link>
+                <Menu.Item key="/admin">
+                  <Link to="/admin">Admin</Link>
                 </Menu.Item>
                 <Menu.Item key="/contact">
                   <Link to="/contact">Contact</Link>
