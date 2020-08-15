@@ -102,16 +102,13 @@ const ProductItem: React.FC = observer(() => {
                   <Col sm={6} style={{ marginBottom: "5px" }}>
                     <Tag>Women</Tag>
                   </Col>
-                  <Col sm={4} offset={12} style={{ marginBottom: "5px" }}>
-                    <Meta title={product.price} />
+                  <Col sm={4} offset={12}>
+                    <h4 style={{ marginTop: "-3px" }}>&#8377;{product.price}</h4>
                   </Col>
                 </Row>
                 <Meta title={product.title} description={product.description} />
-                <p
-                  style={{ fontWeight: "bold", marginTop: "10px" }}
-                >{`Rs. ${product.price}`}</p>
               </Card>
-              <Col style={{ marginTop: "15px", marginLeft: "85px" }}>
+              <Col style={{ marginTop: "10px", marginLeft: "50px" }}>
                 <Button
                   id={product.id}
                   style={{ width: "75px" }}

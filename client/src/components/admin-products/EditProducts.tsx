@@ -59,7 +59,11 @@ const EditProducts: React.FC = () => {
     const { productStore, userStore } = useContext(RootStoreContext);
     const productId = useParams<RouteParams>().productId;
     const { token } = userStore;
-    // const editedItem = products.filter((product: any) => product.id === productId);
+    const products = productStore.products;
+
+    const editedItem = products.find((product: any) =>  {
+        return product._id === productId;
+    });
 
     const handleEditProducts = async (values: any) => {
         await productStore.editAdminProducts(values, productId, token);
@@ -67,11 +71,11 @@ const EditProducts: React.FC = () => {
             message.success(`Edit Product Successfull`);
             history.push('/admin-products');
         } else {
-            message.error(`'Edit Product Failed. Please try again.`);
+            message.error(`Edit Product Failed. Please try again.`);
         }
     };
 
-
+    console.log('editedItem', editedItem);
     return (
         <Observer>
             {() => (
@@ -82,12 +86,14 @@ const EditProducts: React.FC = () => {
                         </Col>
                     </Row>
                     <Divider style={{ border: '1px solid #d6c8c8', marginTop: 'auto' }} />
+                    {editedItem && (
                     <Form
                         {...formItemLayout}
                         form={form}
                         name="editProduct"
                         onFinish={handleEditProducts}
                         scrollToFirstError
+                        initialValues={editedItem}
                     >
                         <Form.Item
                             name="title"
@@ -99,7 +105,7 @@ const EditProducts: React.FC = () => {
                                 },
                             ]}
                         >
-                            <Input />
+                        <Input />
                         </Form.Item>
                         <Form.Item
                             name="description"
@@ -111,7 +117,7 @@ const EditProducts: React.FC = () => {
                                 },
                             ]}
                         >
-                            <Input />
+                        <Input />
                         </Form.Item>
 
                         <Form.Item
@@ -144,6 +150,7 @@ const EditProducts: React.FC = () => {
                         </Button>
                         </Form.Item>
                     </Form>
+                    )}
                 </>
             )}
         </Observer>

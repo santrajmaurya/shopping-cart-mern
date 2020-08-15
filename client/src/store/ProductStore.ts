@@ -9,7 +9,7 @@ export class ProductStore {
         this.rootStore = rootStore;
     }
 
-    @observable products: any = [];
+    @observable.ref products: any = [];
     @observable status: string = "initial";
     @observable editStatus: string = "initial";
     @observable addProductStatus: string = "initial";

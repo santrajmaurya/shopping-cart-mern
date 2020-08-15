@@ -72,6 +72,7 @@ export class UserStore {
                     this.user = response.user;
                     this.userCart = response.user.carts;
                     this.checkIfSignIn = true;
+                    this.userId = response.user._id;
                 })
             } else {
                 this.status = "error";

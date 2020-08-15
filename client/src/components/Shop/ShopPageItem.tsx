@@ -65,8 +65,9 @@ const ShopPageItem: React.FC = observer(() => {
                                     <Col sm={6} style={{ marginBottom: "5px" }}>
                                         <Tag>Women</Tag>
                                     </Col>
-                                    <Col sm={4} offset={12} style={{ marginBottom: "5px" }}>
-                                        <Meta title={product.price} />
+                                    <Col sm={4} offset={12}>
+                                        {/* <Meta title={product.price} /> */}
+                                        <h4 style={{ marginTop: "-3px" }}>&#8377;{product.price}</h4>
                                     </Col>
                                 </Row>
                                 <Meta title={product.title} description={product.description} />
